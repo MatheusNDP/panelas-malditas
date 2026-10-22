@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/inimigo.gd" id="1_dc5j5"]
+[ext_resource type="Texture2D" path="res://sprites/panela.png" id="2_k3jr6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xex7k"]
+size = Vector2(10, 6)
+
+[node name="Inimigo" type="CharacterBody2D" unique_id=1873741737 groups=["inimigo"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_dc5j5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=347214645]
+z_index = 1
+texture = ExtResource("2_k3jr6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1947547598]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_xex7k")

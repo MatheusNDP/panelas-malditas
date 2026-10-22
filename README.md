@@ -19,8 +19,9 @@ Matheus Nunes De Paula
 | Tecla | Ação |
 | --- | --- |
 | Setas ou W A S D | andar |
+| Enter | jogar de novo, na tela de fim |
 
-Por enquanto o jogo é a cozinha com o chef andando. O caldeirão e as panelas entram nas próximas aulas (ver o andamento abaixo).
+Por enquanto (Aula 09): as panelas entram pelas portas e vêm atrás do chef. Cada toque tira 1 de vida; sem vida, você perde. Aguente 60 segundos e você vence. O caldeirão e os 3 minutos da Defesa entram na próxima etapa.
 
 ![Captura de tela](docs/captura.png)
 
@@ -29,10 +30,11 @@ Por enquanto o jogo é a cozinha com o chef andando. O caldeirão e as panelas e
 | Tag | O que o jogo tem |
 | --- | --- |
 | `aula-08` | a cozinha vista de cima (40 × 22 peças, cabe numa tela), com parede, portas, fogões, pias e bancadas com colisão, e o chef andando nas quatro direções |
+| `aula-09` | panelas que nascem nas portas e perseguem o chef, horda que aperta com o tempo, vida com invencibilidade, placar e telas de vitória e derrota |
 
 ## Créditos
 
-- Arte provisória (piso, parede, portas, fogões, pias, bancadas e o chef): feita para este projeto, com auxílio de IA. Ela vai ser trocada pela arte do tema na Aula 11.
+- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef e a panela): feita para este projeto, com auxílio de IA. Ela vai ser trocada pela arte do tema na Aula 11.
 
 ## Uso de IA
 
