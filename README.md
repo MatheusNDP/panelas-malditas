@@ -19,9 +19,10 @@ Matheus Nunes De Paula
 | Tecla | Ação |
 | --- | --- |
 | Setas ou W A S D | andar |
+| Espaço | atacar as panelas perto do chef |
 | Enter | jogar de novo, na tela de fim |
 
-Por enquanto (Aula 09): as panelas entram pelas portas e vêm atrás do chef. Cada toque tira 1 de vida; sem vida, você perde. Aguente 60 segundos e você vence. O caldeirão e os 3 minutos da Defesa entram na próxima etapa.
+As panelas entram pelas portas e vão atrás do caldeirão. Cada panela que encosta nele é um toque, e no 5º toque você perde. Derrube as panelas com o Espaço antes que elas cheguem. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
 ![Captura de tela](docs/captura.png)
 
@@ -31,10 +32,11 @@ Por enquanto (Aula 09): as panelas entram pelas portas e vêm atrás do chef. Ca
 | --- | --- |
 | `aula-08` | a cozinha vista de cima (40 × 22 peças, cabe numa tela), com parede, portas, fogões, pias e bancadas com colisão, e o chef andando nas quatro direções |
 | `aula-09` | panelas que nascem nas portas e perseguem o chef, horda que aperta com o tempo, vida com invencibilidade, placar e telas de vitória e derrota |
+| depois da `aula-09` | ficha Defesa: o caldeirão que aguenta 5 toques, as panelas indo atrás dele, o ataque do chef e os 3 minutos |
 
 ## Créditos
 
-- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef e a panela): feita para este projeto, com auxílio de IA. Ela vai ser trocada pela arte do tema na Aula 11.
+- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a panela e o caldeirão): feita para este projeto, com auxílio de IA. Ela vai ser trocada pela arte do tema na Aula 11.
 
 ## Uso de IA
 

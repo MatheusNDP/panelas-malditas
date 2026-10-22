@@ -11,3 +11,9 @@ Como resolvi: apaguei o repositório e recomecei com a cozinha e arte própria e
 O que fiz: as panelas (arte provisória) nascendo nas quatro portas e perseguindo o chef, a horda que aperta com o tempo, a vida com 1 segundo de invencibilidade, o placar de vida e tempo e as telas de vitória (aguentar 60 s) e de derrota.
 O que travou: a fonte 48 da folha não cabia na tela de 640 × 352. E as panelas que entram pelas portas de cima e de baixo ficam presas atrás das bancadas, porque andam em linha reta até o chef.
 Como resolvi: usei fonte 28 nas telas de fim e 16 no placar. As panelas presas ficam para a Aula 10, que ensina o inimigo a contornar obstáculos.
+
+## Depois da Aula 09 -- 21/10 (ficha Defesa, adiantada)
+
+O que fiz: o caldeirão no centro (Objeto, que conta 5 toques), as panelas indo atrás dele em vez do chef, o ataque com Espaço, o relógio em 3 minutos e um placar dos toques no caldeirão.
+O que travou: como o caldeirão é uma Area2D, o chef passa por cima dele. E, como as panelas de cima e de baixo continuam presas nas bancadas, por enquanto o caldeirão só apanha pelos lados.
+Como resolvi: deixei assim por enquanto. O caminho das panelas é a Aula 10.

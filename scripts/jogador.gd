@@ -1,4 +1,4 @@
-# Origem: técnica dos roteiros da Aula 08 (Parte 3.5) e da Aula 09 (Parte 3.2), Prof. Ezéfferth, aplicada ao chef.
+# Origem: técnica dos roteiros da Aula 08 (Parte 3.5) e da Aula 09 (Parte 3.2 e o ataque da ficha Abate), Prof. Ezéfferth, aplicada ao chef.
 extends CharacterBody2D
 
 @export var velocidade: float = 70.0
@@ -14,6 +14,10 @@ func _process(_delta: float) -> void:
 	# Tem panela encostando em mim?
 	if not invencivel and hurtbox.has_overlapping_bodies():
 		levar_dano()
+
+	if Input.is_action_just_pressed("atacar"):
+		for inimigo in $Ataque.get_overlapping_bodies():
+			inimigo.levar_golpe()
 
 
 func _physics_process(_delta: float) -> void:
