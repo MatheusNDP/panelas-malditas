@@ -19,3 +19,7 @@ texture = ExtResource("2_k3jr6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1947547598]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_xex7k")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1730594121]
+path_desired_distance = 4.0
+target_desired_distance = 4.0

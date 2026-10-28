@@ -1,0 +1,10 @@
+[gd_resource type="NavigationPolygon" format=3]
+
+[resource]
+vertices = PackedVector2Array(598, 314, 522, 314, 182, 262, 282, 262, 618, 22, 618, 330, 534, 118, 534, 90, 598, 38, 182, 118, 182, 90, 282, 90, 282, 118, 118, 38, 118, 22, 522, 22, 522, 38, 458, 90, 358, 90, 598, 22, 458, 118, 358, 118, 106, 90, 42, 38, 458, 234, 458, 262, 358, 262, 358, 234, 598, 330, 534, 262, 534, 234, 522, 330, 118, 330, 118, 314, 106, 262, 42, 314, 42, 330, 22, 330, 22, 22, 106, 234, 42, 22, 182, 234, 106, 118, 282, 234)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 14, 15, 16, 17, 18), PackedInt32Array(8, 19, 4), PackedInt32Array(16, 8, 7, 17), PackedInt32Array(17, 20, 21, 18), PackedInt32Array(13, 18, 11), PackedInt32Array(13, 11, 10), PackedInt32Array(13, 10, 22, 23), PackedInt32Array(24, 25, 26, 27), PackedInt32Array(5, 28, 0), PackedInt32Array(5, 0, 29, 30), PackedInt32Array(2, 1, 31, 32, 33), PackedInt32Array(34, 2, 33, 35), PackedInt32Array(35, 36, 37, 38), PackedInt32Array(39, 34, 35, 38, 23), PackedInt32Array(38, 40, 23), PackedInt32Array(41, 39, 23, 42), PackedInt32Array(20, 6, 5, 30), PackedInt32Array(20, 30, 24, 21), PackedInt32Array(21, 24, 27, 12), PackedInt32Array(12, 27, 43, 9), PackedInt32Array(23, 22, 42), PackedInt32Array(41, 42, 9, 43, 3), PackedInt32Array(2, 41, 3), PackedInt32Array(0, 3, 26), PackedInt32Array(0, 26, 25), PackedInt32Array(0, 25, 29)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 640, 0, 640, 352, 0, 352)])
+parsed_geometry_type = 1
+source_geometry_mode = 2
+source_geometry_group_name = &"navegacao"
+agent_radius = 6.0

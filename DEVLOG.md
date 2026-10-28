@@ -17,3 +17,9 @@ Como resolvi: usei fonte 28 nas telas de fim e 16 no placar. As panelas presas f
 O que fiz: o caldeirão no centro (Objeto, que conta 5 toques), as panelas indo atrás dele em vez do chef, o ataque com Espaço, o relógio em 3 minutos e um placar dos toques no caldeirão.
 O que travou: como o caldeirão é uma Area2D, o chef passa por cima dele. E, como as panelas de cima e de baixo continuam presas nas bancadas, por enquanto o caldeirão só apanha pelos lados.
 Como resolvi: deixei assim por enquanto. O caminho das panelas é a Aula 10.
+
+## Aula 10 -- 28/10
+
+O que fiz: a navegação das panelas. Uma NavigationRegion2D cobre a cozinha e monta a malha de caminho a partir das colisões da camada objetos, com 6 px de folga em volta da parede, das bancadas, dos fogões e das pias. Cada panela ganhou um NavigationAgent2D e anda até o próximo ponto do caminho em vez de ir em linha reta. Agora as panelas de cima e de baixo contornam a bancada do meio e o caldeirão apanha pelas quatro portas.
+O que travou: a NavigationRegion2D só lê as colisões dos próprios filhos, e as camadas da cozinha são irmãs dela, então a malha saía sem os obstáculos.
+Como resolvi: coloquei a camada objetos no grupo navegacao e mandei a região ler só esse grupo. Se o mapa mudar, é só selecionar a Navegacao e clicar em Bake NavigationPolygon de novo.
