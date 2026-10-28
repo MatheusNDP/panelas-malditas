@@ -15,7 +15,6 @@ extends Node2D
 func _process(_delta: float) -> void:
 	texto_vida.text = "Vida: %d" % jogador.vida
 	texto_tempo.text = "Tempo: %d" % ceil(relogio.time_left)
-	# Origem: IA (Claude) — placar dos toques no caldeirão, no formato dos placares das fichas.
 	texto_caldeirao.text = "Caldeirão: %d / 5" % objeto.toques
 
 

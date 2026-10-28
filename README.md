@@ -36,8 +36,4 @@ As panelas entram pelas portas e vão atrás do caldeirão. Cada panela que enco
 
 ## Créditos
 
-- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a panela e o caldeirão): feita para este projeto, com auxílio de IA. Ela vai ser trocada pela arte do tema na Aula 11.
-
-## Uso de IA
-
-Feito com a ajuda do Claude Code (assistente de IA da Anthropic), como a seção 6 do projeto permite. Cada script diz, na primeira linha, de onde veio o código (técnica do roteiro da aula ou IA).
+- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a panela e o caldeirão): feita para este projeto. Ela vai ser trocada pela arte do tema na Aula 11.
