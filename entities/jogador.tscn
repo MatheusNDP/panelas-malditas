@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://3rpw40jwlynj"]
 
-[ext_resource type="Script" path="res://scripts/jogador.gd" id="1_m0gj8"]
-[ext_resource type="Texture2D" path="res://sprites/chef.png" id="2_mi7s2"]
+[ext_resource type="Script" uid="uid://lqdkj2jiosv4" path="res://scripts/jogador.gd" id="1_m0gj8"]
+[ext_resource type="Texture2D" uid="uid://de7b681c1y3j3" path="res://sprites/chef.png" id="2_mi7s2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as3f3"]
 atlas = ExtResource("2_mi7s2")
@@ -145,7 +145,7 @@ size = Vector2(10, 6)
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6odg7"]
-radius = 20.0
+radius = 8.0
 
 [node name="Jogador" type="CharacterBody2D" unique_id=887535217 groups=["player"]]
 collision_layer = 2
