@@ -175,3 +175,13 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ataque" unique_id=1906756883]
 shape = SubResource("CircleShape2D_6odg7")
+
+[node name="Golpe" type="ColorRect" parent="Ataque" unique_id=1530187264]
+visible = false
+z_index = 2
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.3529412)

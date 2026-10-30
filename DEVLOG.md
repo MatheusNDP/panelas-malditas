@@ -23,3 +23,9 @@ Como resolvi: deixei assim por enquanto. O caminho das panelas é a Aula 10.
 O que fiz: a navegação das panelas. Uma NavigationRegion2D cobre a cozinha e monta a malha de caminho a partir das colisões da camada objetos, com 6 px de folga em volta da parede, das bancadas, dos fogões e das pias. Cada panela ganhou um NavigationAgent2D e anda até o próximo ponto do caminho em vez de ir em linha reta. Agora as panelas de cima e de baixo contornam a bancada do meio e o caldeirão apanha pelas quatro portas.
 O que travou: a NavigationRegion2D só lê as colisões dos próprios filhos, e as camadas da cozinha são irmãs dela, então a malha saía sem os obstáculos.
 Como resolvi: coloquei a camada objetos no grupo navegacao e mandei a região ler só esse grupo. Se o mapa mudar, é só selecionar a Navegacao e clicar em Bake NavigationPolygon de novo.
+
+## Aula 10 -- 28/10 (Parte 2 e ajustes, feitos em 29/10)
+
+O que fiz: deixei a navegação igual à da folha, com as camadas chao e objetos dentro da Navegacao e a folga (Agent Radius) de volta em 10, e fiz o Bake de novo. Terminei o ataque da Parte 2: o chef só bate de 0,4 em 0,4 s, um clarão branco mostra o golpe e o placar conta as panelas derrubadas. De extra, a rota mais barata: um Timer de 0,2 s faz a panela recalcular o caminho 5 vezes por segundo em vez de 60.
+O que travou: na primeira versão eu tinha baixado a folga para 6, e a folha avisa que assim a panela raspa nas quinas e engancha. E sem a trava do ataque, martelar o Espaço limpava a cozinha.
+Como resolvi: com as camadas dentro da Navegacao o truque do grupo não foi mais preciso, e com a folga em 10 as panelas das quatro portas continuam chegando ao caldeirão. A trava é o pode_atacar, no mesmo jeito do invencivel do dano. No tipo Defesa os abates só aparecem no placar: quem dá a vitória continua sendo o relógio.
