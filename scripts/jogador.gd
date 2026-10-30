@@ -10,7 +10,7 @@ var pode_atacar := true
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox: Area2D = $Hurtbox
 @onready var ataque: Area2D = $Ataque
-@onready var golpe: ColorRect = $Ataque/Golpe
+@onready var faca: Sprite2D = $Ataque/Faca
 
 
 func _process(_delta: float) -> void:
@@ -62,10 +62,13 @@ func atacar() -> void:
 	for inimigo in ataque.get_overlapping_bodies():
 		inimigo.levar_golpe()
 
-	# O clarão dura 0,1 s; o próximo golpe só sai 0,4 s depois deste.
+	# A faca dá uma volta inteira no chef em 0,2 s; o próximo golpe só sai 0,4 s depois deste.
 	pode_atacar = false
-	golpe.visible = true
-	await get_tree().create_timer(0.1).timeout
-	golpe.visible = false
-	await get_tree().create_timer(0.3).timeout
+	faca.rotation = 0.0
+	faca.visible = true
+	var volta := create_tween()
+	volta.tween_property(faca, "rotation", TAU, 0.2)
+	await volta.finished
+	faca.visible = false
+	await get_tree().create_timer(0.2).timeout
 	pode_atacar = true

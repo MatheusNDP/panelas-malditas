@@ -33,8 +33,8 @@ As panelas entram pelas portas e vão atrás do caldeirão. Cada panela que enco
 | `aula-08` | a cozinha vista de cima (40 × 22 peças, cabe numa tela), com parede, portas, fogões, pias e bancadas com colisão, e o chef andando nas quatro direções |
 | `aula-09` | panelas que nascem nas portas e perseguem o chef, horda que aperta com o tempo, vida com invencibilidade, placar e telas de vitória e derrota |
 | depois da `aula-09` | ficha Defesa: o caldeirão que aguenta 5 toques, as panelas indo atrás dele, o ataque do chef e os 3 minutos |
-| `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga, clarão e placar de abates |
+| `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga e placar de abates, com uma faca que dá uma volta em torno dele |
 
 ## Créditos
 
-- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a panela e o caldeirão): feita para este projeto. Ela vai ser trocada pela arte do tema na Aula 11.
+- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a faca, a panela e o caldeirão): feita para este projeto. Ela vai ser trocada pela arte do tema na Aula 11.
