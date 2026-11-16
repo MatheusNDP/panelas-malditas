@@ -42,6 +42,54 @@ position = Vector2(320, 24)
 [node name="Baixo" type="Marker2D" parent="Nascedouros" unique_id=834873165]
 position = Vector2(320, 322)
 
+[node name="FogaoCima" type="Marker2D" parent="Nascedouros" unique_id=1102938471]
+position = Vector2(80, 42)
+
+[node name="Aviso" type="ColorRect" parent="Nascedouros/FogaoCima" unique_id=1203948572]
+visible = false
+offset_left = -32.0
+offset_top = -26.0
+offset_right = 32.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(1, 0.15, 0.1, 0.6)
+
+[node name="FogaoBaixo" type="Marker2D" parent="Nascedouros" unique_id=1304958673]
+position = Vector2(80, 306)
+
+[node name="Aviso" type="ColorRect" parent="Nascedouros/FogaoBaixo" unique_id=1405968774]
+visible = false
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 30.0
+mouse_filter = 2
+color = Color(1, 0.15, 0.1, 0.6)
+
+[node name="PiaCima" type="Marker2D" parent="Nascedouros" unique_id=1506978875]
+position = Vector2(560, 42)
+
+[node name="Aviso" type="ColorRect" parent="Nascedouros/PiaCima" unique_id=1607988976]
+visible = false
+offset_left = -32.0
+offset_top = -26.0
+offset_right = 32.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(1, 0.15, 0.1, 0.6)
+
+[node name="PiaBaixo" type="Marker2D" parent="Nascedouros" unique_id=1708998077]
+position = Vector2(560, 306)
+
+[node name="Aviso" type="ColorRect" parent="Nascedouros/PiaBaixo" unique_id=1810008178]
+visible = false
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 30.0
+mouse_filter = 2
+color = Color(1, 0.15, 0.1, 0.6)
+
 [node name="Horda" type="Timer" parent="." unique_id=414946770]
 wait_time = 2.0
 autostart = true
@@ -55,26 +103,38 @@ autostart = true
 
 [node name="Vida" type="Label" parent="HUD" unique_id=757088884]
 offset_left = 6.0
+offset_top = -1.0
 offset_right = 6.0
-theme_override_font_sizes/font_size = 16
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 
 [node name="Tempo" type="Label" parent="HUD" unique_id=389406682]
-offset_left = 6.0
-offset_top = 18.0
-offset_right = 6.0
-offset_bottom = 18.0
-theme_override_font_sizes/font_size = 16
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = -1.0
+offset_right = 60.0
+offset_bottom = 16.0
+grow_horizontal = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 
 [node name="Caldeirao" type="Label" parent="HUD" unique_id=1294513778]
-offset_left = 6.0
-offset_top = 36.0
-offset_right = 6.0
-offset_bottom = 36.0
-theme_override_font_sizes/font_size = 16
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = -1.0
+offset_right = -6.0
+offset_bottom = 16.0
+grow_horizontal = 0
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 

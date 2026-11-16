@@ -31,3 +31,12 @@ O que travou: na primeira versão eu tinha baixado a folga para 6, e a folha avi
 Como resolvi: com as camadas dentro da Navegacao o truque do grupo não foi mais preciso, e com a folga em 10 as panelas das quatro portas continuam chegando ao caldeirão. A trava é o pode_atacar, no mesmo jeito do invencivel do dano. No tipo Defesa os abates só aparecem no placar: quem dá a vitória continua sendo o relógio.
 
 Depois: troquei o clarão branco por uma faca de cozinha (arte provisória, 24 × 10 px) que dá uma volta inteira em torno do chef em 0,2 s quando ele ataca. O raio do golpe subiu de 8 para 24, porque com 8 o chef só acertava a panela já encostada e o clarão ficava escondido atrás dele. A ponta da faca chega a 28 px, quase o mesmo alcance do golpe.
+
+## Melhorias depois da Aula 10 -- 16/11
+
+O professor trocou a Aula 11 por melhorar o jogo a partir da Aula 10.
+
+O que fiz: as panelas não entram mais só pelas quatro portas. Agora elas também pulam dos dois fogões e das duas pias dos cantos, e são 8 lugares sorteados. Antes de soltar a panela, o fogão ou a pia pisca em vermelho por 1 s, para dar tempo de o chef chegar lá.
+O que travou: com só quatro portas, todas no meio das paredes, as panelas faziam sempre os mesmos quatro caminhos até o caldeirão, e o jogo ficava previsível.
+Como resolvi: mais quatro Marker2D nos Nascedouros, cada um com um ColorRect Aviso por cima do aparelho. Na horda, se o nascedouro sorteado tem Aviso, a cozinha pisca uma cópia dele com um Tween e só depois solta a panela. A cópia é para duas panelas seguidas do mesmo fogão não apagarem o aviso uma da outra.
+Depois: o placar ficava por cima do fogão de cima e escondia o aviso dele. Passei o placar para uma linha só, em cima da parede de cima, com fonte 12: vida e abates à esquerda, tempo no meio e caldeirão à direita.
