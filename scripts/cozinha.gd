@@ -2,6 +2,9 @@
 extends Node2D
 
 @export var cena_inimigo: PackedScene
+@export var cena_frigideira: PackedScene
+@export var cena_pressao: PackedScene
+@export var cena_brava: PackedScene
 
 var abates := 0
 
@@ -33,11 +36,22 @@ func _on_horda_timeout() -> void:
 
 
 func soltar_panela(posicao: Vector2) -> void:
-	var inimigo := cena_inimigo.instantiate()
+	var inimigo := sortear_panela().instantiate()
 	inimigo.global_position = posicao
-	# Defesa: a panela vai atrás do caldeirão, e não do chef.
-	inimigo.grupo_alvo = "objeto"
 	add_child(inimigo)
+
+
+# Cada tipo de panela já sabe na própria cena quem persegue: as panelas comuns,
+# a frigideira e a de pressão vão atrás do caldeirão; a brava vai atrás do chef.
+func sortear_panela() -> PackedScene:
+	var sorteio := randf()
+	if sorteio < 0.2:
+		return cena_frigideira
+	if sorteio < 0.3:
+		return cena_pressao
+	if sorteio < 0.4:
+		return cena_brava
+	return cena_inimigo
 
 
 # Cada aviso é uma cópia do Aviso do nascedouro: assim duas panelas

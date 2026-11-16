@@ -1,4 +1,4 @@
-# Origem: técnica dos roteiros da Aula 09 (Parte 1.3, fichas Abate e Defesa) e da Aula 10 (Partes 1.4 e 2.4 e a rota mais barata), Prof. Ezéfferth, aplicada à panela.
+# Origem: técnica dos roteiros da Aula 09 (Parte 1.3, fichas Abate e Defesa) e da Aula 10 (Partes 1.4 e 2.4, a rota mais barata e o inimigo que aguenta mais), Prof. Ezéfferth, aplicada à panela.
 extends CharacterBody2D
 
 @export var velocidade: float = 40.0
@@ -29,3 +29,10 @@ func levar_golpe() -> void:
 	if vida <= 0:
 		get_tree().current_scene.inimigo_morreu(self)
 		queue_free()
+		return
+
+	# Ainda tem vida (a panela de pressão): fica meio transparente por 0,1 s
+	# para mostrar que o golpe pegou.
+	modulate.a = 0.4
+	await get_tree().create_timer(0.1).timeout
+	modulate.a = 1.0

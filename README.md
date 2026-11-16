@@ -22,7 +22,16 @@ Matheus Nunes De Paula
 | Espaço | atacar as panelas perto do chef |
 | Enter | jogar de novo, na tela de fim |
 
-As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que piscam em vermelho 1 s antes) e vão atrás do caldeirão. Cada panela que encosta nele é um toque, e no 5º toque você perde. Derrube as panelas com o Espaço antes que elas cheguem. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
+As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que piscam em vermelho 1 s antes) e vão atrás do caldeirão. Há quatro tipos:
+
+| Panela | O que faz |
+| --- | --- |
+| comum | vai atrás do caldeirão |
+| frigideira | mais rápida |
+| panela de pressão | mais lenta, aguenta 3 golpes |
+| panela brava | vermelha, vai atrás do chef e não do caldeirão |
+
+Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. Derrube as panelas com o Espaço antes que elas cheguem. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
 ![Captura de tela](docs/captura.png)
 
@@ -34,8 +43,8 @@ As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que pisca
 | `aula-09` | panelas que nascem nas portas e perseguem o chef, horda que aperta com o tempo, vida com invencibilidade, placar e telas de vitória e derrota |
 | depois da `aula-09` | ficha Defesa: o caldeirão que aguenta 5 toques, as panelas indo atrás dele, o ataque do chef e os 3 minutos |
 | `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga e placar de abates, com uma faca que dá uma volta em torno dele |
-| depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes |
+| depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, e quatro tipos de panela |
 
 ## Créditos
 
-- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a faca, a panela e o caldeirão): feita para este projeto. Ela vai ser trocada pela arte do tema na Aula 11.
+- Arte provisória (piso, parede, portas, fogões, pias, bancadas, o chef, a faca, as panelas e o caldeirão): feita para este projeto. Ela vai ser trocada pela arte do tema na Aula 11.

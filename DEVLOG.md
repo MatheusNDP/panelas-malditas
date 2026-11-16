@@ -40,3 +40,7 @@ O que fiz: as panelas não entram mais só pelas quatro portas. Agora elas tamb�
 O que travou: com só quatro portas, todas no meio das paredes, as panelas faziam sempre os mesmos quatro caminhos até o caldeirão, e o jogo ficava previsível.
 Como resolvi: mais quatro Marker2D nos Nascedouros, cada um com um ColorRect Aviso por cima do aparelho. Na horda, se o nascedouro sorteado tem Aviso, a cozinha pisca uma cópia dele com um Tween e só depois solta a panela. A cópia é para duas panelas seguidas do mesmo fogão não apagarem o aviso uma da outra.
 Depois: o placar ficava por cima do fogão de cima e escondia o aviso dele. Passei o placar para uma linha só, em cima da parede de cima, com fonte 12: vida e abates à esquerda, tempo no meio e caldeirão à direita.
+
+Ainda em 16/11: tipos de panela. Além da panela comum, agora saem a frigideira (rápida, velocidade 60), a panela de pressão (lenta, aguenta 3 golpes e fica meio transparente quando apanha) e a panela brava (vermelha, vai atrás do chef em vez do caldeirão). Cada tipo é uma cena herdada da inimigo.tscn, que só troca a arte e os números; a cozinha sorteia o tipo de cada panela (60% comum, 20% frigideira, 10% pressão, 10% brava).
+O que travou: a panela brava cruzava o caldeirão no caminho até o chef, o caldeirão contava um toque e apagava a panela.
+Como resolvi: o caldeirão agora só conta as panelas que estão atrás dele (grupo_alvo "objeto"); a brava passa por cima.
