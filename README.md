@@ -33,6 +33,14 @@ As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que pisca
 
 Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. Derrube as panelas com o Espaço antes que elas cheguem. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
+Os 3 minutos têm três fases:
+
+| Fase | Tempo | O que muda |
+| --- | --- | --- |
+| 1 | 0 a 1 min | só panelas comuns, entrando pelas portas |
+| 2 | 1 a 2 min | os fogões e as pias começam a soltar panelas, e entram as frigideiras |
+| 3 | 2 a 3 min | chegam também a panela de pressão e a brava |
+
 ![Captura de tela](docs/captura.png)
 
 ## Andamento
@@ -43,7 +51,7 @@ Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. D
 | `aula-09` | panelas que nascem nas portas e perseguem o chef, horda que aperta com o tempo, vida com invencibilidade, placar e telas de vitória e derrota |
 | depois da `aula-09` | ficha Defesa: o caldeirão que aguenta 5 toques, as panelas indo atrás dele, o ataque do chef e os 3 minutos |
 | `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga e placar de abates, com uma faca que dá uma volta em torno dele |
-| depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, e quatro tipos de panela |
+| depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, quatro tipos de panela e três fases nos 3 minutos |
 
 ## Créditos
 

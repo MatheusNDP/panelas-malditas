@@ -44,3 +44,7 @@ Depois: o placar ficava por cima do fogão de cima e escondia o aviso dele. Pass
 Ainda em 16/11: tipos de panela. Além da panela comum, agora saem a frigideira (rápida, velocidade 60), a panela de pressão (lenta, aguenta 3 golpes e fica meio transparente quando apanha) e a panela brava (vermelha, vai atrás do chef em vez do caldeirão). Cada tipo é uma cena herdada da inimigo.tscn, que só troca a arte e os números; a cozinha sorteia o tipo de cada panela (60% comum, 20% frigideira, 10% pressão, 10% brava).
 O que travou: a panela brava cruzava o caldeirão no caminho até o chef, o caldeirão contava um toque e apagava a panela.
 Como resolvi: o caldeirão agora só conta as panelas que estão atrás dele (grupo_alvo "objeto"); a brava passa por cima.
+
+Ainda em 16/11: fases. Os 3 minutos agora têm três fases de 1 minuto. Na fase 1 só entram panelas comuns, e só pelas portas. Na fase 2 os fogões e as pias começam a soltar panelas, e entram as frigideiras. Na fase 3 chegam também a panela de pressão e a brava. O placar mostra a fase, e na troca aparece um aviso amarelo por 2,5 s.
+O que travou: com tudo liberado desde o começo, o jogo já começava no máximo e não tinha para onde crescer.
+Como resolvi: uma função fase() calcula a fase pelo tempo que já passou no Relogio, e tanto o sorteio do nascedouro quanto o do tipo de panela consultam essa fase.
