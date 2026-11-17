@@ -65,3 +65,9 @@ Como fiz: um Autoload chamado Som (scripts/som.gd), que existe o jogo todo e sob
 O que travou: a música precisava tocar em loop sem configurar nada na importação.
 Como resolvi: o arquivo musica.wav tem um bloco "smpl" com o laço, e a Godot já importa a música em loop.
 Depois: fechando a janela com a música tocando, a Godot avisava que a musica.wav tinha ficado presa na memória ("leaked at exit"). Agora o Som desliga o auto_accept_quit, para todos os sons quando a janela pede para fechar e só chama get_tree().quit() 0,1 s depois.
+
+Ainda em 16/11: telas. O jogo começava direto na cozinha e as telas de fim eram só texto.
+O que fiz: uma tela de início (titulo.tscn, agora a cena principal) com o nome do jogo, o chef e as panelas pulando, as instruções e o recorde, e uma tela de fim só (fim.tscn, no lugar de vitoria.tscn e derrota.tscn) que mostra se a sopa foi salva, se o caldeirão caiu ou se o chef caiu, as panelas derrubadas, o nível e o tempo. Enter joga de novo e Esc volta para o início. As duas usam a mesma cozinha escurecida de fundo (fundo.tscn).
+Como fiz: outro Autoload, Partida (scripts/partida.gd), guarda o resumo da última partida para a tela de fim ler, e grava o recorde de abates num ConfigFile em user://recorde.cfg. A cozinha chama Partida.terminar() antes de trocar de cena, e o perder() agora recebe o motivo ("caldeirao" ou "chef").
+O que travou: numa partida longa, a chaleira parada para cuspir virava um obstáculo, e as panelas que vinham pelo mesmo caminho faziam fila atrás dela.
+Como resolvi: as panelas não colidem mais umas com as outras (a Mask delas ficou só na camada 1, do mundo). Elas continuam batendo nas paredes e nas bancadas.

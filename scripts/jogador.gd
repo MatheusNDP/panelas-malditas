@@ -61,7 +61,7 @@ func levar_dano() -> void:
 	Som.tocar("dano")
 	get_tree().current_scene.tremer(3.0)
 	if vida <= 0:
-		get_tree().current_scene.perder()
+		get_tree().current_scene.perder("chef")
 		return
 
 	# Um segundo de invencibilidade, meio transparente.

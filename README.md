@@ -20,7 +20,8 @@ Matheus Nunes De Paula
 | --- | --- |
 | Setas ou W A S D | andar |
 | 1, 2, 3 ou o mouse | escolher a melhoria ao subir de nível |
-| Enter | jogar de novo, na tela de fim |
+| Enter | começar, na tela de início, e jogar de novo, na tela de fim |
+| Esc | voltar para a tela de início, na tela de fim |
 
 As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que piscam em vermelho 1 s antes) e vão atrás do caldeirão. Há quatro tipos:
 
@@ -67,6 +68,7 @@ Os 3 minutos têm três fases:
 | `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga e placar de abates, com uma faca que dá uma volta em torno dele |
 | depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, quatro tipos de panela, três fases nos 3 minutos, ataque automático, XP com melhorias, a chaleira, o caldeirão sólido e a arte nova com efeitos |
 | depois da `aula-10` | sons e música de fundo |
+| depois da `aula-10` | tela de início, tela de fim com o resumo da partida e recorde de abates salvo |
 
 ## Créditos
 

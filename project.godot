@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Panelas Malditas"
-run/main_scene="res://scenes/cozinha.tscn"
+run/main_scene="res://scenes/titulo.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Som="*res://scripts/som.gd"
+Partida="*res://scripts/partida.gd"
 
 [display]
 

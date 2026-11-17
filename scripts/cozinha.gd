@@ -195,8 +195,11 @@ func tremer(forca: float) -> void:
 
 # call_deferred: troca de cena só no fim do quadro, quando a física terminou.
 func vencer() -> void:
-	get_tree().change_scene_to_file.call_deferred("res://scenes/vitoria.tscn")
+	Partida.terminar(true, "", abates, nivel, relogio.wait_time)
+	get_tree().change_scene_to_file.call_deferred("res://scenes/fim.tscn")
 
 
-func perder() -> void:
-	get_tree().change_scene_to_file.call_deferred("res://scenes/derrota.tscn")
+# motivo: "caldeirao" quando a sopa se perde, "chef" quando o chef fica sem vida.
+func perder(motivo := "caldeirao") -> void:
+	Partida.terminar(false, motivo, abates, nivel, relogio.wait_time - relogio.time_left)
+	get_tree().change_scene_to_file.call_deferred("res://scenes/fim.tscn")
