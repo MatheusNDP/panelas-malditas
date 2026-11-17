@@ -58,6 +58,7 @@ func _physics_process(_delta: float) -> void:
 
 func levar_dano() -> void:
 	vida -= 1
+	Som.tocar("dano")
 	get_tree().current_scene.tremer(3.0)
 	if vida <= 0:
 		get_tree().current_scene.perder()
@@ -73,7 +74,10 @@ func levar_dano() -> void:
 
 func atacar() -> void:
 	# Acerta toda panela que estiver dentro do círculo neste quadro.
-	for inimigo in ataque.get_overlapping_bodies():
+	var acertadas := ataque.get_overlapping_bodies()
+	if not acertadas.is_empty():
+		Som.tocar("faca", -4.0)
+	for inimigo in acertadas:
 		inimigo.levar_golpe(dano)
 
 	# A faca dá uma volta inteira no chef (em 0,2 s, ou menos se a recarga for curta);

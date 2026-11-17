@@ -51,9 +51,11 @@ func levar_golpe(dano: int = 1) -> void:
 	if vida <= 0:
 		get_tree().current_scene.inimigo_morreu(self)
 		get_tree().current_scene.soltar_particulas(global_position, cor_cacos)
+		Som.tocar("quebra", -2.0)
 		queue_free()
 		return
 
 	# Ainda tem vida: a panela pisca branca para mostrar que o golpe pegou.
+	Som.tocar("acerto", -3.0)
 	sprite.modulate = Color(4, 4, 4)
 	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.15)

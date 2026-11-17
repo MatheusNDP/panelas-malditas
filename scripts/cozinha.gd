@@ -27,6 +27,10 @@ var xp_proximo := 5
 @onready var camera: Camera2D = $Camera
 
 
+func _ready() -> void:
+	Som.tocar_musica()
+
+
 func _process(_delta: float) -> void:
 	texto_vida.text = "Vida: %d   Abates: %d" % [jogador.vida, abates]
 	texto_tempo.text = "Fase %d   Tempo: %d" % [fase(), ceil(relogio.time_left)]
@@ -56,6 +60,7 @@ func anunciar_fase() -> void:
 	else:
 		texto_fase.text = "Fase 3: chegaram a pressão e a brava!"
 	texto_fase.visible = true
+	Som.tocar("fase", 0.0, false)
 	await get_tree().create_timer(2.5).timeout
 	texto_fase.visible = false
 
@@ -149,6 +154,7 @@ func conferir_nivel() -> void:
 	xp -= xp_proximo
 	nivel += 1
 	xp_proximo += 5
+	Som.tocar("nivel", 0.0, false)
 	melhorias.abrir(nivel)
 
 

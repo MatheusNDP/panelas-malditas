@@ -10,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_101bo")
+som = "derrota"
 
 [node name="Label" type="Label" parent="." unique_id=754676999]
 layout_mode = 1

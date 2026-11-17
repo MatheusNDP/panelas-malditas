@@ -23,5 +23,6 @@ func levar_toque() -> void:
 	create_tween().tween_property($Sprite2D, "modulate", Color.WHITE, 0.3)
 	get_tree().current_scene.soltar_particulas(global_position, Color(0.95, 0.55, 0.2))
 	get_tree().current_scene.tremer(4.0)
+	Som.tocar("caldeirao")
 	if toques >= limite:
 		get_tree().current_scene.perder()

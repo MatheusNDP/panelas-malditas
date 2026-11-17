@@ -66,7 +66,9 @@ Os 3 minutos têm três fases:
 | depois da `aula-09` | ficha Defesa: o caldeirão que aguenta 5 toques, as panelas indo atrás dele, o ataque do chef e os 3 minutos |
 | `aula-10` | navegação: as panelas acham o caminho pela cozinha (recalculado 5 vezes por segundo) e contornam as bancadas, então o caldeirão apanha pelas quatro portas; o ataque do chef com recarga e placar de abates, com uma faca que dá uma volta em torno dele |
 | depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, quatro tipos de panela, três fases nos 3 minutos, ataque automático, XP com melhorias, a chaleira, o caldeirão sólido e a arte nova com efeitos |
+| depois da `aula-10` | sons e música de fundo |
 
 ## Créditos
 
 - Arte (piso, paredes, portas, fogões, pias, bancadas, tapete, o chef, a faca, as panelas, a chaleira, o caldeirão e os efeitos): pixel art feita para este projeto.
+- Sons e música (no estilo 8 bits): sintetizados para este projeto.
