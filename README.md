@@ -32,6 +32,7 @@ As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que pisca
 | panela de pressão | mais lenta, aguenta 3 golpes |
 | panela brava | vermelha, vai atrás do chef e não do caldeirão |
 | chaleira | para longe do caldeirão e cospe vapor nele; o vapor tira um toque, a não ser que o chef entre na frente |
+| Panelão | a panela gigante: chega aos 2:15 pela porta de cima, é lenta, aguenta 50 golpes, vale 25 XP e, se chegar ao caldeirão, fica batendo nele a cada 1,5 s até ser derrubada |
 
 Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. O chef ataca sozinho: a faca dá uma volta em torno dele a cada 0,4 s e derruba as panelas que estiverem perto. Vá até elas antes que cheguem ao caldeirão. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
@@ -69,6 +70,7 @@ Os 3 minutos têm três fases:
 | depois da `aula-10` | panelas pulando também dos fogões e das pias, com aviso piscando antes, quatro tipos de panela, três fases nos 3 minutos, ataque automático, XP com melhorias, a chaleira, o caldeirão sólido e a arte nova com efeitos |
 | depois da `aula-10` | sons e música de fundo |
 | depois da `aula-10` | tela de início, tela de fim com o resumo da partida e recorde de abates salvo |
+| depois da `aula-10` | o Panelão, a panela gigante dos últimos 45 s, com barra de vida |
 
 ## Créditos
 

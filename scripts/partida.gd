@@ -12,6 +12,7 @@ var nivel := 1
 var tempo := 0.0
 var recorde := 0
 var novo_recorde := false
+var panelao_derrotado := false
 
 
 func _ready() -> void:

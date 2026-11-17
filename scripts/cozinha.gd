@@ -6,12 +6,15 @@ extends Node2D
 @export var cena_pressao: PackedScene
 @export var cena_brava: PackedScene
 @export var cena_chaleira: PackedScene
+@export var cena_panelao: PackedScene
 
 var abates := 0
 var fase_anunciada := 1
 var nivel := 1
 var xp := 0
 var xp_proximo := 5
+var panelao: Node2D = null
+var panelao_veio := false
 
 @onready var horda: Timer = $Horda
 @onready var relogio: Timer = $Relogio
@@ -25,10 +28,13 @@ var xp_proximo := 5
 @onready var barra_xp: ColorRect = $HUD/BarraXP/Cheia
 @onready var melhorias := $Melhorias
 @onready var camera: Camera2D = $Camera
+@onready var barra_chefe: Control = $HUD/Chefe
+@onready var vida_chefe: ColorRect = $HUD/Chefe/Barra/Vida
 
 
 func _ready() -> void:
 	Som.tocar_musica()
+	Partida.panelao_derrotado = false
 
 
 func _process(_delta: float) -> void:
@@ -41,6 +47,14 @@ func _process(_delta: float) -> void:
 	if fase() > fase_anunciada:
 		fase_anunciada = fase()
 		anunciar_fase()
+
+	# O Panelão chega aos 2:15 (faltando 45 s) e a barra de vida dele aparece no alto.
+	if not panelao_veio and relogio.wait_time - relogio.time_left >= 135.0:
+		panelao_veio = true
+		chamar_panelao()
+	barra_chefe.visible = is_instance_valid(panelao)
+	if barra_chefe.visible:
+		vida_chefe.size.x = vida_chefe.get_parent().size.x * panelao.vida / panelao.vida_maxima
 
 
 # Os 3 minutos têm três fases de 1 minuto: a cada uma, mais lugares
@@ -62,6 +76,19 @@ func anunciar_fase() -> void:
 	texto_fase.visible = true
 	Som.tocar("fase", 0.0, false)
 	await get_tree().create_timer(2.5).timeout
+	texto_fase.visible = false
+
+
+func chamar_panelao() -> void:
+	panelao = cena_panelao.instantiate()
+	panelao.global_position = $Nascedouros/Cima.global_position + Vector2(0, 8)
+	add_child(panelao)
+	soltar_particulas(panelao.global_position, Color(0.95, 0.95, 0.95), true)
+	tremer(5.0)
+	Som.tocar("fase", 0.0, false)
+	texto_fase.text = "O Panelão chegou! Derrube-o antes do caldeirão!"
+	texto_fase.visible = true
+	await get_tree().create_timer(3.0).timeout
 	texto_fase.visible = false
 
 
@@ -143,6 +170,11 @@ func _on_relogio_timeout() -> void:
 # mas cada panela derrubada dá XP para o chef subir de nível.
 func inimigo_morreu(inimigo: Node2D) -> void:
 	abates += 1
+	if inimigo == panelao:
+		Partida.panelao_derrotado = true
+		tremer(6.0)
+		for i in 3:
+			soltar_particulas(inimigo.global_position + Vector2(randf_range(-10, 10), randf_range(-12, 4)), inimigo.cor_cacos)
 	xp += inimigo.xp
 	conferir_nivel()
 

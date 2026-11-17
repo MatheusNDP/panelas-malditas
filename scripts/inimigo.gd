@@ -16,9 +16,10 @@ var tempo := 0.0
 
 
 func _ready() -> void:
-	# A panela surge com um "pop": cresce de zero até o tamanho normal.
+	# A panela surge com um "pop": cresce de zero até o tamanho dela.
+	var tamanho := sprite.scale
 	sprite.scale = Vector2.ZERO
-	create_tween().tween_property(sprite, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	create_tween().tween_property(sprite, "scale", tamanho, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 # Andando, a panela vai dando pulinhos.

@@ -10,6 +10,10 @@ func _on_body_entered(inimigo: Node2D) -> void:
 	# A panela brava só passa por cima: ela quer o chef, não a sopa.
 	if inimigo.grupo_alvo != "objeto":
 		return
+	# O Panelão não some: ele fica batendo no caldeirão.
+	if inimigo.has_method("encostou_no_caldeirao"):
+		inimigo.encostou_no_caldeirao()
+		return
 
 	inimigo.queue_free()
 	levar_toque()

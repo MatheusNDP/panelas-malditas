@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://entities/panela_brava.tscn" id="9_brav"]
 [ext_resource type="Script" path="res://scripts/melhorias.gd" id="10_melh"]
 [ext_resource type="PackedScene" path="res://entities/chaleira.tscn" id="11_chal"]
+[ext_resource type="PackedScene" path="res://entities/panelao.tscn" id="12_pnl"]
 
 [sub_resource type="Gradient" id="Gradient_vinheta"]
 offsets = PackedFloat32Array(0.55, 1)
@@ -53,6 +54,7 @@ cena_frigideira = ExtResource("7_frig")
 cena_pressao = ExtResource("8_pres")
 cena_brava = ExtResource("9_brav")
 cena_chaleira = ExtResource("11_chal")
+cena_panelao = ExtResource("12_pnl")
 
 [node name="Navegacao" type="NavigationRegion2D" parent="." unique_id=1410282026]
 navigation_polygon = ExtResource("6_nav10")
@@ -244,6 +246,45 @@ color = Color(0.1, 0.08, 0.08, 0.9)
 offset_bottom = 6.0
 mouse_filter = 2
 color = Color(1, 0.85, 0.3, 1)
+
+[node name="Chefe" type="Control" parent="HUD" unique_id=1506070809]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 17.0
+offset_right = 90.0
+offset_bottom = 36.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Nome" type="Label" parent="HUD/Chefe" unique_id=1506070810]
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 0.6, 0.45, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "PANELÃO"
+horizontal_alignment = 1
+
+[node name="Barra" type="ColorRect" parent="HUD/Chefe" unique_id=1506070811]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 180.0
+offset_bottom = 19.0
+mouse_filter = 2
+color = Color(0.1, 0.08, 0.08, 0.9)
+
+[node name="Vida" type="ColorRect" parent="HUD/Chefe/Barra" unique_id=1506070812]
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 6.0
+mouse_filter = 2
+color = Color(0.9, 0.25, 0.2, 1)
 
 [node name="Melhorias" type="CanvasLayer" parent="." unique_id=1067835241]
 process_mode = 2

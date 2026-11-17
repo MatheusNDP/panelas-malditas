@@ -71,3 +71,9 @@ O que fiz: uma tela de início (titulo.tscn, agora a cena principal) com o nome 
 Como fiz: outro Autoload, Partida (scripts/partida.gd), guarda o resumo da última partida para a tela de fim ler, e grava o recorde de abates num ConfigFile em user://recorde.cfg. A cozinha chama Partida.terminar() antes de trocar de cena, e o perder() agora recebe o motivo ("caldeirao" ou "chef").
 O que travou: numa partida longa, a chaleira parada para cuspir virava um obstáculo, e as panelas que vinham pelo mesmo caminho faziam fila atrás dela.
 Como resolvi: as panelas não colidem mais umas com as outras (a Mask delas ficou só na camada 1, do mundo). Elas continuam batendo nas paredes e nas bancadas.
+
+Ainda em 16/11: o Panelão. Os 3 minutos não tinham um final marcante.
+O que fiz: aos 2:15 (faltando 45 s) entra o Panelão pela porta de cima, com aviso, tremor de tela e uma barra de vida vermelha no alto. É uma panela gigante (desenho 32 x 32 aumentado 1,5 vez), lenta (velocidade 16), aguenta 50 golpes e vale 25 XP. Ao chegar no caldeirão ela não some como as outras: fica batendo nele a cada 1,5 s (Timer Pancada) até ser derrubada. Quando cai, solta cacos para todo lado, e a tela de fim mostra "Panelão derrotado!".
+Como fiz: outra cena herdada da panela, com o script panelao.gd estendendo o inimigo.gd. O caldeirão pergunta se a panela tem o método encostou_no_caldeirao(); se tiver, chama em vez de apagar a panela. A colisão dele é só um pouco maior que a das outras (14 x 8, nos pés), para ele continuar cabendo na folga do mapa de navegação, como a ficha Chefe da Aula 10 avisava.
+O que travou: o "pop" de quando a panela nasce levava o desenho de volta para o tamanho 1, e o Panelão encolhia.
+Como resolvi: o pop agora volta para o tamanho que o desenho tinha na cena.

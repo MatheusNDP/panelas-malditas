@@ -26,6 +26,8 @@ func _ready() -> void:
 
 	var segundos := int(Partida.tempo)
 	resumo.text = "Panelas derrubadas: %d\nNível alcançado: %d\nTempo: %d:%02d" % [Partida.abates, Partida.nivel, segundos / 60, segundos % 60]
+	if Partida.panelao_derrotado:
+		resumo.text += "\nPanelão derrotado!"
 	if Partida.novo_recorde:
 		recorde.text = "Novo recorde!"
 	else:
