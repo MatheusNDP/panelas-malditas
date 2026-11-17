@@ -7,6 +7,8 @@
 velocidade = 30.0
 vida = 3
 xp = 3
+peso = 2.0
+chance_power_up = 0.12
 cor_cacos = Color(0.78, 0.8, 0.85, 1)
 
 [node name="Sprite2D" parent="." index="0"]

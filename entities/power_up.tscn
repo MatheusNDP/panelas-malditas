@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/power_up.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://sprites/rastro.png" id="2_brilho"]
+[ext_resource type="Texture2D" path="res://sprites/sombra.png" id="3_sombra"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_power"]
+radius = 8.0
+
+[node name="PowerUp" type="Area2D" unique_id=1901000001 groups=["power_up"]]
+z_index = 1
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="Sombra" type="Sprite2D" parent="." unique_id=1901000002]
+position = Vector2(0, 8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_sombra")
+
+[node name="Brilho" type="Sprite2D" parent="." unique_id=1901000003]
+modulate = Color(1, 0.95, 0.6, 0.5)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_brilho")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1901000004]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1901000005]
+shape = SubResource("CircleShape2D_power")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

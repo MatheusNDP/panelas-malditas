@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/armas/garfo.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://sprites/garfo.png" id="2_arte"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_garfo"]
+size = Vector2(12, 6)
+
+[node name="Garfo" type="Area2D" unique_id=1801000010]
+z_index = 2
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1801000011]
+texture = ExtResource("2_arte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1801000012]
+shape = SubResource("RectangleShape2D_garfo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

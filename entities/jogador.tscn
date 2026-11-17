@@ -195,3 +195,5 @@ visible = false
 z_index = 2
 texture = ExtResource("3_faca")
 offset = Vector2(16, 0)
+
+[node name="Armas" type="Node2D" parent="." unique_id=1801000070]

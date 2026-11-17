@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/armas/poca.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://sprites/azeite.png" id="2_arte"]
+
+[node name="Poca" type="Area2D" unique_id=1801000050]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1801000051]
+texture = ExtResource("2_arte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1801000052]
+
+[node name="Queima" type="Timer" parent="." unique_id=1801000053]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Queima" to="." method="_on_queima_timeout"]

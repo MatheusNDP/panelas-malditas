@@ -80,17 +80,17 @@ position = Vector2(320, 160)
 
 [node name="Panela" type="Sprite2D" parent="Elenco" unique_id=1203004010]
 position = Vector2(-190, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("3_panela")
 
 [node name="Frigideira" type="Sprite2D" parent="Elenco" unique_id=1203004011]
 position = Vector2(-125, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("4_frigideira")
 
 [node name="Chaleira" type="Sprite2D" parent="Elenco" unique_id=1203004012]
 position = Vector2(-62, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("5_chaleira")
 
 [node name="Chef" type="Sprite2D" parent="Elenco" unique_id=1203004013]
@@ -102,17 +102,17 @@ region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Pressao" type="Sprite2D" parent="Elenco" unique_id=1203004014]
 position = Vector2(62, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("7_panela_pressao")
 
 [node name="Brava" type="Sprite2D" parent="Elenco" unique_id=1203004015]
 position = Vector2(125, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("8_panela_brava")
 
 [node name="Panela2" type="Sprite2D" parent="Elenco" unique_id=1203004016]
 position = Vector2(190, 0)
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("3_panela")
 
 [node name="Instrucoes" type="PanelContainer" parent="." unique_id=1203004020]
@@ -131,7 +131,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
 theme_override_font_sizes/font_size = 12
-text = "Setas ou W A S D: andar. A faca gira sozinha.\nDerrube as panelas antes que cheguem ao caldeirão.\nAo subir de nível, escolha a melhoria com 1, 2 ou 3."
+text = "Andar: setas ou W A S D     Pausa: Esc\nProteja o caldeirão!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

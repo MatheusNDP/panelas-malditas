@@ -10,6 +10,7 @@ script = ExtResource("3_script")
 velocidade = 35.0
 vida = 2
 xp = 3
+chance_power_up = 0.12
 cena_vapor = ExtResource("4_vapor")
 cor_cacos = Color(0.3, 0.62, 0.68, 1)
 

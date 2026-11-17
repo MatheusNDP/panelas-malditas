@@ -8,6 +8,7 @@ extends Node2D
 @export var cena_chaleira: PackedScene
 @export var cena_panelao: PackedScene
 @export var cena_xp: PackedScene
+@export var cena_power_up: PackedScene
 
 var abates := 0
 var fase_anunciada := 1
@@ -15,6 +16,8 @@ var nivel := 1
 var xp := 0
 var xp_proximo := 5
 var panelao: Node2D = null
+# Power-ups que já foram soltos mas ainda não entraram na cena (entram no fim do quadro).
+var power_ups_chegando := 0
 var panelao_veio := false
 
 @onready var horda: Timer = $Horda
@@ -70,10 +73,7 @@ func fase() -> int:
 
 
 func anunciar_fase() -> void:
-	if fase_anunciada == 2:
-		texto_fase.text = "Fase 2: os fogões acordaram, e a chaleira chegou!"
-	else:
-		texto_fase.text = "Fase 3: chegaram a pressão e a brava!"
+	texto_fase.text = "Fase %d" % fase_anunciada
 	texto_fase.visible = true
 	Som.tocar("fase", 0.0, false)
 	await get_tree().create_timer(2.5).timeout
@@ -87,7 +87,7 @@ func chamar_panelao() -> void:
 	soltar_particulas(panelao.global_position, Color(0.95, 0.95, 0.95), true)
 	tremer(5.0)
 	Som.tocar("fase", 0.0, false)
-	texto_fase.text = "O Panelão chegou! Derrube-o antes do caldeirão!"
+	texto_fase.text = "PANELÃO!"
 	texto_fase.visible = true
 	await get_tree().create_timer(3.0).timeout
 	texto_fase.visible = false
@@ -211,6 +211,11 @@ func _on_relogio_timeout() -> void:
 func inimigo_morreu(inimigo: Node2D) -> void:
 	abates += 1
 	soltar_xp(inimigo.global_position, inimigo.xp)
+	# Às vezes a panela solta um power-up (o Panelão solta dois); no máximo 5 no chão.
+	var quantos := 2 if inimigo == panelao else (1 if randf() < inimigo.chance_power_up else 0)
+	for i in quantos:
+		if power_ups_no_chao() < 5:
+			soltar_power_up(inimigo.global_position, inimigo.global_position + Vector2.from_angle(randf() * TAU) * 14.0)
 	if inimigo == panelao:
 		Partida.panelao_derrotado = true
 		tremer(6.0)
@@ -270,6 +275,103 @@ func soltar_xp(posicao: Vector2, quanto: int) -> void:
 		add_child(bolinha)
 		var destino := posicao + Vector2.from_angle(randf() * TAU) * randf_range(4.0, 6.0 + quanto * 0.8)
 		bolinha.create_tween().tween_property(bolinha, "global_position", destino, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+# A cada 12 s um power-up aparece num lugar sorteado do chão (no máximo 3 ao mesmo tempo).
+func _on_power_ups_timeout() -> void:
+	if power_ups_no_chao() >= 3:
+		return
+	# Um ponto do mapa de navegação é sempre chão livre; longe do chef, para ele ter que ir buscar.
+	var lugar := Vector2.ZERO
+	for tentativa in 10:
+		lugar = NavigationServer2D.map_get_random_point(get_world_2d().navigation_map, 1, false)
+		if lugar.distance_to(jogador.global_position) > 60.0:
+			break
+	soltar_power_up(lugar, lugar)
+
+
+func power_ups_no_chao() -> int:
+	return get_tree().get_nodes_in_group("power_up").size() + power_ups_chegando
+
+
+# A Coxinha só vale com o chef machucado, e a Concha com o caldeirão já tendo apanhado.
+func sortear_power_up() -> String:
+	var tipos := ["ima", "ima", "pimenta", "gelo"]
+	if jogador.vida < jogador.vida_maxima:
+		tipos.append("coxinha")
+	if objeto.toques > 0:
+		tipos.append("concha")
+	return tipos.pick_random()
+
+
+# O power-up nasce em "origem" e pula até "destino" (os dois iguais quando vem do timer).
+func soltar_power_up(origem: Vector2, destino: Vector2) -> void:
+	var power_up := cena_power_up.instantiate()
+	power_up.tipo = sortear_power_up()
+	power_up.global_position = origem
+	power_up.pulo_ate = destino
+	power_ups_chegando += 1
+	power_up.tree_entered.connect(func() -> void: power_ups_chegando -= 1, CONNECT_ONE_SHOT)
+	# call_deferred: a panela pode quebrar dentro de um sinal de física (garfo, colher),
+	# e uma Area2D nova só pode entrar na cena depois que a física termina.
+	add_child.call_deferred(power_up)
+
+
+func pegar_power_up(tipo: String, posicao: Vector2) -> void:
+	Som.tocar("powerup", 0.0, false)
+	soltar_particulas(posicao, Color(1, 0.9, 0.5), true)
+	match tipo:
+		"ima":
+			mostrar_texto("Ímã!")
+			for bolinha in get_children():
+				if bolinha.scene_file_path.ends_with("xp.tscn"):
+					bolinha.espera = 0.0
+					bolinha.puxando = true
+		"pimenta":
+			mostrar_texto("Pimenta!")
+			jogador.pressa = 8.0
+		"coxinha":
+			mostrar_texto("Coxinha!")
+			jogador.vida = min(jogador.vida + 1, jogador.vida_maxima)
+		"gelo":
+			mostrar_texto("Gelo!")
+			congelar_panelas(4.0)
+		"concha":
+			mostrar_texto("Sopa!")
+			objeto.toques = max(0, objeto.toques - 1)
+
+
+# Todas as panelas param por uns segundos: o process_mode desligado congela o movimento,
+# os timers (o cuspe da chaleira, a pancada do Panelão) e as animações delas.
+func congelar_panelas(segundos: float) -> void:
+	var congeladas := get_tree().get_nodes_in_group("inimigo")
+	for panela in congeladas:
+		panela.process_mode = Node.PROCESS_MODE_DISABLED
+		panela.modulate = Color(0.6, 0.85, 1.4)
+	await get_tree().create_timer(segundos, false).timeout
+	for panela in congeladas:
+		if is_instance_valid(panela):
+			panela.process_mode = Node.PROCESS_MODE_INHERIT
+			panela.modulate = Color.WHITE
+
+
+# Um aviso curto que sobe da cabeça do chef e some.
+func mostrar_texto(texto: String) -> void:
+	var aviso := Label.new()
+	aviso.text = texto
+	aviso.z_index = 3
+	aviso.size = Vector2(240, 14)
+	aviso.position = jogador.global_position - Vector2(120, 28)
+	aviso.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	aviso.add_theme_font_size_override("font_size", 10)
+	aviso.add_theme_color_override("font_color", Color(1, 0.9, 0.45))
+	aviso.add_theme_color_override("font_outline_color", Color(0.16, 0.07, 0.08))
+	aviso.add_theme_constant_override("outline_size", 4)
+	add_child(aviso)
+	var sobe := create_tween().set_parallel()
+	sobe.tween_property(aviso, "position:y", aviso.position.y - 18, 1.4).set_ease(Tween.EASE_OUT)
+	sobe.tween_property(aviso, "modulate:a", 0.0, 0.6).set_delay(0.9)
+	sobe.chain().tween_callback(aviso.queue_free)
 
 
 # A tela treme um pouco: o caldeirão apanhando, o chef se machucando.

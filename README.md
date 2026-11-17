@@ -21,7 +21,8 @@ Matheus Nunes De Paula
 | Setas ou W A S D | andar |
 | 1, 2, 3 ou o mouse | escolher a melhoria ao subir de nível |
 | Enter | começar, na tela de início, e jogar de novo, na tela de fim |
-| Esc | pausar o jogo (e continuar); na tela de fim, voltar para a tela de início |
+| Esc | pausar o jogo e abrir o livro de receitas (e continuar); na tela de fim, voltar para a tela de início |
+| setas ou A / D | no livro de receitas, virar a página |
 | M | na pausa, voltar para a tela de início |
 
 As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que piscam em vermelho 1 s antes) e vão atrás do caldeirão. Há quatro tipos:
@@ -37,19 +38,39 @@ As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que pisca
 
 Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. O chef ataca sozinho: a faca dá uma volta em torno dele a cada 0,4 s e derruba as panelas que estiverem perto. Vá até elas antes que cheguem ao caldeirão. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
-O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela derrubada solta bolinhas verdes de XP no chão (a de pressão e a chaleira soltam 3, a brava 2, o Panelão 25 e as outras 1). Quando o chef passa perto, as bolinhas voam até ele e viram XP. Com XP suficiente o chef sobe de nível, o jogo pausa e você escolhe uma de três melhorias sorteadas:
+O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela derrubada solta bolinhas verdes de XP no chão (a de pressão e a chaleira soltam 3, a brava 2, o Panelão 25 e as outras 1). Quando o chef passa perto (48 px), as bolinhas voam até ele e viram XP. Com XP suficiente o chef sobe de nível, o jogo pausa e mostra três cartões sorteados, cada um com o desenho e o nome da melhoria:
 
 | Melhoria | O que faz |
 | --- | --- |
 | Faca maior | alcance +4 (até 40) |
-| Golpe mais rápido | recarga 15% menor (até 0,3 s) |
+| Golpe rápido | recarga 15% menor (até 0,3 s) |
 | Faca afiada | dano +1 |
-| Botas de cozinha | chef 15% mais rápido |
-| Avental reforçado | vida +1 |
-| Tampa no caldeirão | o caldeirão aguenta +1 toque |
-| Ímã de geladeira | puxa as bolinhas de XP de mais longe (+28, até 120) |
+| Botas | chef 15% mais rápido |
+| Vida +1 | vida +1 |
+| Caldeirão +1 | o caldeirão aguenta +1 toque |
+| Ímã | puxa as bolinhas de XP de mais longe (+28, até 120) |
+
+Além das melhorias, o sorteio oferece armas novas (o cartão diz "NOVA"). Cada arma, depois de escolhida, também aparece no sorteio para subir de nível, até o 5 (o cartão diz "Nv 2", "Nv 3"...):
+
+| Arma | Como funciona |
+| --- | --- |
+| Faca (a do começo) | gira em volta do chef e acerta quem estiver perto |
+| Panelaço | o chef bate uma tampa e solta uma onda para todos os lados, que acerta e empurra as panelas |
+| Garfos | arremessa garfos nas panelas mais perto; o garfo atravessa panelas e para na parede |
+| Colheres | colheres que giram em volta do chef o tempo todo |
+| Azeite | derrama uma poça perto das panelas, que queima e deixa quem pisa mais lento |
 
 O primeiro nível pede 5 XP, e cada nível seguinte pede 5 a mais (10, 15, 20...).
+
+A cada 12 s aparece um power-up num lugar sorteado do chão (no máximo 3 ao mesmo tempo). As panelas também soltam power-ups quando quebram: a comum e a frigideira em 4% das vezes, a brava em 8%, a de pressão e a chaleira em 12%, e o Panelão sempre solta dois (no máximo 5 no chão). O power-up pisca nos últimos 3 s e some depois de 15 s:
+
+| Power-up | Efeito |
+| --- | --- |
+| Ímã | puxa todas as bolinhas de XP da cozinha até o chef |
+| Pimenta | chef 60% mais rápido por 8 s |
+| Coxinha | vida +1 (só aparece quando o chef está machucado) |
+| Gelo | congela todas as panelas por 4 s |
+| Concha de sopa | o caldeirão recupera 1 toque (só aparece quando ele já apanhou) |
 
 Os 3 minutos têm três fases:
 
@@ -74,6 +95,9 @@ Os 3 minutos têm três fases:
 | depois da `aula-10` | tela de início, tela de fim com o resumo da partida e recorde de abates salvo |
 | depois da `aula-10` | o Panelão, a panela gigante dos últimos 45 s, com barra de vida |
 | depois da `aula-10` | pausa com Esc, bolinhas de XP com ímã e chamas e água no aviso dos fogões e das pias |
+| depois da `aula-10` | quatro armas novas (Panelaço, Garfos, Colheres de pau e Azeite quente), cada uma com 5 níveis |
+| depois da `aula-10` | power-ups no chão: ímã, pimenta, coxinha, gelo e concha de sopa |
+| depois da `aula-10` | tela de nível com cartões (desenho e nome) e a pausa como um livro de receitas que explica cada item |
 
 ## Créditos
 

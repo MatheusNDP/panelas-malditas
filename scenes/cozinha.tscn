@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" path="res://entities/panelao.tscn" id="12_pnl"]
 [ext_resource type="Script" path="res://scripts/pausa.gd" id="13_pausa"]
 [ext_resource type="PackedScene" path="res://entities/xp.tscn" id="14_xp"]
+[ext_resource type="PackedScene" path="res://entities/power_up.tscn" id="15_power"]
+[ext_resource type="Texture2D" path="res://sprites/livro.png" id="16_livro"]
 
 [sub_resource type="Gradient" id="Gradient_vinheta"]
 offsets = PackedFloat32Array(0.55, 1)
@@ -58,6 +60,7 @@ cena_brava = ExtResource("9_brav")
 cena_chaleira = ExtResource("11_chal")
 cena_panelao = ExtResource("12_pnl")
 cena_xp = ExtResource("14_xp")
+cena_power_up = ExtResource("15_power")
 
 [node name="Navegacao" type="NavigationRegion2D" parent="." unique_id=1410282026]
 navigation_polygon = ExtResource("6_nav10")
@@ -165,6 +168,10 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_vinheta")
 expand_mode = 1
 
+[node name="PowerUps" type="Timer" parent="." unique_id=1901000010]
+wait_time = 12.0
+autostart = true
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=66298599]
 
 [node name="Vida" type="Label" parent="HUD" unique_id=757088884]
@@ -212,13 +219,13 @@ anchor_right = 0.5
 offset_left = -300.0
 offset_top = 52.0
 offset_right = 300.0
-offset_bottom = 80.0
+offset_bottom = 86.0
 grow_horizontal = 2
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
+theme_override_constants/outline_size = 8
 
 [node name="Nivel" type="Label" parent="HUD" unique_id=1734502918]
 anchors_preset = 2
@@ -308,30 +315,30 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -300.0
-offset_top = 96.0
+offset_top = 92.0
 offset_right = 300.0
 offset_bottom = 124.0
 grow_horizontal = 2
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
+theme_override_constants/outline_size = 8
 
 [node name="Opcoes" type="HBoxContainer" parent="Melhorias" unique_id=1390168574]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -270.0
-offset_top = 140.0
-offset_right = 270.0
-offset_bottom = 220.0
+offset_left = -186.0
+offset_top = 132.0
+offset_right = 186.0
+offset_bottom = 244.0
 grow_horizontal = 2
 alignment = 1
 theme_override_constants/separation = 12
 
 [node name="Botao1" type="Button" parent="Melhorias/Opcoes" unique_id=1401279685]
-custom_minimum_size = Vector2(172, 80)
+custom_minimum_size = Vector2(116, 112)
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -339,10 +346,58 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
-text = "1."
+
+[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao1" unique_id=1902001402]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 17.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
+theme_override_font_sizes/font_size = 10
+text = "1"
+
+[node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao1" unique_id=1902001403]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 12.0
+offset_right = 24.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Melhorias/Opcoes/Botao1" unique_id=1902001404]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 86.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="Etiqueta" type="Label" parent="Melhorias/Opcoes/Botao1" unique_id=1902001405]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 86.0
+offset_bottom = 102.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.65, 0.92, 0.45, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
 
 [node name="Botao2" type="Button" parent="Melhorias/Opcoes" unique_id=1512380796]
-custom_minimum_size = Vector2(172, 80)
+custom_minimum_size = Vector2(116, 112)
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -350,10 +405,58 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
-text = "2."
+
+[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao2" unique_id=1902001406]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 17.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
+theme_override_font_sizes/font_size = 10
+text = "2"
+
+[node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao2" unique_id=1902001407]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 12.0
+offset_right = 24.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Melhorias/Opcoes/Botao2" unique_id=1902001408]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 86.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="Etiqueta" type="Label" parent="Melhorias/Opcoes/Botao2" unique_id=1902001409]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 86.0
+offset_bottom = 102.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.65, 0.92, 0.45, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
 
 [node name="Botao3" type="Button" parent="Melhorias/Opcoes" unique_id=1623491807]
-custom_minimum_size = Vector2(172, 80)
+custom_minimum_size = Vector2(116, 112)
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -361,7 +464,55 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
-text = "3."
+
+[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao3" unique_id=1902001410]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 17.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
+theme_override_font_sizes/font_size = 10
+text = "3"
+
+[node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao3" unique_id=1902001411]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 12.0
+offset_right = 24.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Melhorias/Opcoes/Botao3" unique_id=1902001412]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 86.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="Etiqueta" type="Label" parent="Melhorias/Opcoes/Botao3" unique_id=1902001413]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 86.0
+offset_bottom = 102.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.65, 0.92, 0.45, 1)
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
 
 [node name="Pausa" type="CanvasLayer" parent="." unique_id=1607080901]
 process_mode = 3
@@ -377,59 +528,94 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="Titulo" type="Label" parent="Pausa" unique_id=1607080903]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 100.0
-offset_right = 200.0
-offset_bottom = 140.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 30
-text = "Pausado"
+[node name="Livro" type="TextureRect" parent="Pausa" unique_id=1607080910]
+offset_left = 60.0
+offset_top = 20.0
+offset_right = 580.0
+offset_bottom = 316.0
+mouse_filter = 2
+texture = ExtResource("16_livro")
+
+[node name="Esquerda" type="VBoxContainer" parent="Pausa" unique_id=1607080911]
+offset_left = 86.0
+offset_top = 36.0
+offset_right = 304.0
+offset_bottom = 300.0
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Direita" type="VBoxContainer" parent="Pausa" unique_id=1607080912]
+offset_left = 338.0
+offset_top = 36.0
+offset_right = 556.0
+offset_bottom = 300.0
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Anterior" type="Button" parent="Pausa" unique_id=1607080913]
+offset_left = 80.0
+offset_top = 282.0
+offset_right = 104.0
+offset_bottom = 302.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.47, 0.24, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.75, 0.2, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "<"
+flat = true
+
+[node name="Proxima" type="Button" parent="Pausa" unique_id=1607080914]
+offset_left = 536.0
+offset_top = 282.0
+offset_right = 560.0
+offset_bottom = 302.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.47, 0.24, 0.16, 1)
+theme_override_colors/font_hover_color = Color(0.75, 0.2, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = ">"
+flat = true
+
+[node name="Pagina" type="Label" parent="Pausa" unique_id=1607080915]
+offset_left = 417.0
+offset_top = 286.0
+offset_right = 477.0
+offset_bottom = 300.0
+theme_override_colors/font_color = Color(0.55, 0.42, 0.3, 1)
+theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 
-[node name="Opcoes" type="VBoxContainer" parent="Pausa" unique_id=1607080904]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_top = 156.0
-offset_right = 100.0
-offset_bottom = 240.0
-grow_horizontal = 2
-theme_override_constants/separation = 10
+[node name="Rodape" type="HBoxContainer" parent="Pausa" unique_id=1607080916]
+offset_left = 120.0
+offset_top = 322.0
+offset_right = 520.0
+offset_bottom = 346.0
+alignment = 1
+theme_override_constants/separation = 16
 
-[node name="Continuar" type="Button" parent="Pausa/Opcoes" unique_id=1607080905]
-custom_minimum_size = Vector2(200, 34)
+[node name="Continuar" type="Button" parent="Pausa/Rodape" unique_id=1607080905]
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
-theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+theme_override_colors/font_hover_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 12
 text = "Continuar (Esc)"
+flat = true
 
-[node name="Inicio" type="Button" parent="Pausa/Opcoes" unique_id=1607080906]
-custom_minimum_size = Vector2(200, 34)
+[node name="Inicio" type="Button" parent="Pausa/Rodape" unique_id=1607080906]
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
-theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+theme_override_colors/font_hover_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 12
 text = "Tela de início (M)"
+flat = true
 
 [connection signal="timeout" from="Horda" to="." method="_on_horda_timeout"]
 [connection signal="timeout" from="Relogio" to="." method="_on_relogio_timeout"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao1" to="Melhorias" method="_on_botao_1_pressed"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao2" to="Melhorias" method="_on_botao_2_pressed"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao3" to="Melhorias" method="_on_botao_3_pressed"]
-[connection signal="pressed" from="Pausa/Opcoes/Continuar" to="Pausa" method="continuar"]
-[connection signal="pressed" from="Pausa/Opcoes/Inicio" to="Pausa" method="voltar_ao_inicio"]
+[connection signal="pressed" from="Pausa/Rodape/Continuar" to="Pausa" method="continuar"]
+[connection signal="pressed" from="Pausa/Rodape/Inicio" to="Pausa" method="voltar_ao_inicio"]
+[connection signal="pressed" from="Pausa/Anterior" to="Pausa" method="virar" binds= [-1]]
+[connection signal="pressed" from="Pausa/Proxima" to="Pausa" method="virar" binds= [1]]
+[connection signal="timeout" from="PowerUps" to="." method="_on_power_ups_timeout"]

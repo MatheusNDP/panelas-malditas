@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/armas/colher.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://sprites/colher.png" id="2_arte"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_colher"]
+radius = 6.0
+
+[node name="Colher" type="Area2D" unique_id=1801000030]
+z_index = 2
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1801000031]
+rotation = -1.5707964
+texture = ExtResource("2_arte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1801000032]
+shape = SubResource("CircleShape2D_colher")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

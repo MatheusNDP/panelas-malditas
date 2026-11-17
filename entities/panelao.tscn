@@ -12,11 +12,13 @@ script = ExtResource("3_script")
 velocidade = 16.0
 vida = 50
 xp = 25
+peso = 6.0
+chance_power_up = 1.0
 cor_cacos = Color(0.77, 0.41, 0.27, 1)
 
 [node name="Sprite2D" parent="." index="0"]
-scale = Vector2(1.5, 1.5)
-offset = Vector2(0, -6)
+scale = Vector2(1.2, 1.2)
+offset = Vector2(0, -8)
 texture = ExtResource("2_arte")
 
 [node name="Sombra" parent="." index="1"]

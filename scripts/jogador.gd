@@ -6,12 +6,15 @@ extends CharacterBody2D
 # Tempo entre um giro da faca e o próximo; a melhoria "golpe mais rápido" diminui.
 @export var recarga: float = 0.4
 # Até onde as bolinhas de XP são puxadas; a melhoria "ímã de geladeira" aumenta.
-@export var raio_ima: float = 36.0
+@export var raio_ima: float = 48.0
 
 var invencivel := false
 var pode_atacar := true
 var dano := 1
 var forma_ataque: CircleShape2D
+var vida_maxima := 0
+# Segundos que ainda faltam do efeito da pimenta (chef mais rápido).
+var pressa := 0.0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox: Area2D = $Hurtbox
@@ -21,6 +24,7 @@ var forma_ataque: CircleShape2D
 
 
 func _ready() -> void:
+	vida_maxima = vida
 	# Uma cópia do círculo do ataque só deste chef: a melhoria "faca maior" muda o raio,
 	# e sem a cópia o raio maior continuaria na partida seguinte.
 	forma_ataque = $Ataque/CollisionShape2D.shape.duplicate()
@@ -37,9 +41,13 @@ func _process(_delta: float) -> void:
 		atacar()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var direcao := Input.get_vector("left", "right", "up", "down")
-	velocity = direcao * velocidade
+	# Com a pimenta, o chef anda 60% mais rápido e fica avermelhado.
+	pressa -= delta
+	var acelerado := pressa > 0.0
+	velocity = direcao * velocidade * (1.6 if acelerado else 1.0)
+	anim.self_modulate = Color(1.3, 0.8, 0.7) if acelerado else Color.WHITE
 	move_and_slide()
 
 	if direcao == Vector2.ZERO:

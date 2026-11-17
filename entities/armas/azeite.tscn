@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/armas/azeite.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://entities/armas/poca.tscn" id="2_poca"]
+
+[node name="azeite" type="Node2D" unique_id=1801000060]
+script = ExtResource("1_script")
+cena_poca = ExtResource("2_poca")

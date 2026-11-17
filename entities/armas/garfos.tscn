@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/armas/garfos.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://entities/armas/garfo.tscn" id="2_garfo"]
+
+[node name="garfos" type="Node2D" unique_id=1801000020]
+script = ExtResource("1_script")
+cena_garfo = ExtResource("2_garfo")

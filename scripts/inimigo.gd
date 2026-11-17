@@ -8,8 +8,15 @@ extends CharacterBody2D
 @export var xp: int = 1
 # A cor dos cacos que voam quando a panela quebra.
 @export var cor_cacos: Color = Color(0.77, 0.41, 0.27)
+# Quanto mais pesada, menos o empurrão do Panelaço joga a panela para trás.
+@export var peso: float = 1.0
+# Chance (de 0 a 1) de soltar um power-up quando quebra.
+@export var chance_power_up: float = 0.04
 
 var tempo := 0.0
+var empurrao := Vector2.ZERO
+# Segundos que a panela ainda anda pela metade (pisou no azeite quente).
+var lentidao := 0.0
 
 @onready var agente: NavigationAgent2D = $NavigationAgent2D
 @onready var sprite: Sprite2D = $Sprite2D
@@ -31,12 +38,20 @@ func _process(delta: float) -> void:
 		sprite.position.y = 0.0
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# A panela não vai mais em linha reta: o agente acha um caminho pela cozinha
 	# que contorna as bancadas, e ela anda até o próximo ponto desse caminho.
 	var proximo := agente.get_next_path_position()
-	velocity = global_position.direction_to(proximo) * velocidade
+	var fator := 0.5 if lentidao > 0.0 else 1.0
+	lentidao -= delta
+	velocity = global_position.direction_to(proximo) * velocidade * fator + empurrao
+	empurrao = empurrao.move_toward(Vector2.ZERO, 500.0 * delta)
 	move_and_slide()
+
+
+# O Panelaço joga a panela para trás; o empurrão vai diminuindo sozinho.
+func empurrar(direcao: Vector2, forca: float) -> void:
+	empurrao = direcao * forca / peso
 
 
 # O caminho é recalculado 5 vezes por segundo (o Timer de 0,2 s), e não a cada quadro.
@@ -48,6 +63,9 @@ func _on_timer_timeout() -> void:
 
 
 func levar_golpe(dano: int = 1) -> void:
+	# Duas armas podem acertar no mesmo quadro: a panela que já quebrou não quebra de novo.
+	if vida <= 0:
+		return
 	vida -= dano
 	if vida <= 0:
 		get_tree().current_scene.inimigo_morreu(self)
