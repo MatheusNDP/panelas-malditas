@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://scripts/melhorias.gd" id="10_melh"]
 [ext_resource type="PackedScene" path="res://entities/chaleira.tscn" id="11_chal"]
 [ext_resource type="PackedScene" path="res://entities/panelao.tscn" id="12_pnl"]
+[ext_resource type="Script" path="res://scripts/pausa.gd" id="13_pausa"]
+[ext_resource type="PackedScene" path="res://entities/xp.tscn" id="14_xp"]
 
 [sub_resource type="Gradient" id="Gradient_vinheta"]
 offsets = PackedFloat32Array(0.55, 1)
@@ -55,6 +57,7 @@ cena_pressao = ExtResource("8_pres")
 cena_brava = ExtResource("9_brav")
 cena_chaleira = ExtResource("11_chal")
 cena_panelao = ExtResource("12_pnl")
+cena_xp = ExtResource("14_xp")
 
 [node name="Navegacao" type="NavigationRegion2D" parent="." unique_id=1410282026]
 navigation_polygon = ExtResource("6_nav10")
@@ -103,7 +106,7 @@ offset_top = -26.0
 offset_right = 32.0
 offset_bottom = -10.0
 mouse_filter = 2
-color = Color(1, 0.15, 0.1, 0.6)
+color = Color(1, 0.45, 0.1, 0.45)
 
 [node name="FogaoBaixo" type="Marker2D" parent="Nascedouros" unique_id=1304958673]
 position = Vector2(80, 306)
@@ -115,7 +118,7 @@ offset_top = 14.0
 offset_right = 32.0
 offset_bottom = 30.0
 mouse_filter = 2
-color = Color(1, 0.15, 0.1, 0.6)
+color = Color(1, 0.45, 0.1, 0.45)
 
 [node name="PiaCima" type="Marker2D" parent="Nascedouros" unique_id=1506978875]
 position = Vector2(560, 42)
@@ -127,7 +130,7 @@ offset_top = -26.0
 offset_right = 32.0
 offset_bottom = -10.0
 mouse_filter = 2
-color = Color(1, 0.15, 0.1, 0.6)
+color = Color(0.4, 0.7, 1, 0.45)
 
 [node name="PiaBaixo" type="Marker2D" parent="Nascedouros" unique_id=1708998077]
 position = Vector2(560, 306)
@@ -139,7 +142,7 @@ offset_top = 14.0
 offset_right = 32.0
 offset_bottom = 30.0
 mouse_filter = 2
-color = Color(1, 0.15, 0.1, 0.6)
+color = Color(0.4, 0.7, 1, 0.45)
 
 [node name="Horda" type="Timer" parent="." unique_id=414946770]
 wait_time = 2.0
@@ -360,8 +363,73 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
 text = "3."
 
+[node name="Pausa" type="CanvasLayer" parent="." unique_id=1607080901]
+process_mode = 3
+layer = 3
+visible = false
+script = ExtResource("13_pausa")
+
+[node name="Fundo" type="ColorRect" parent="Pausa" unique_id=1607080902]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Titulo" type="Label" parent="Pausa" unique_id=1607080903]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "Pausado"
+horizontal_alignment = 1
+
+[node name="Opcoes" type="VBoxContainer" parent="Pausa" unique_id=1607080904]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 156.0
+offset_right = 100.0
+offset_bottom = 240.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="Continuar" type="Button" parent="Pausa/Opcoes" unique_id=1607080905]
+custom_minimum_size = Vector2(200, 34)
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+text = "Continuar (Esc)"
+
+[node name="Inicio" type="Button" parent="Pausa/Opcoes" unique_id=1607080906]
+custom_minimum_size = Vector2(200, 34)
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.94, 0.82, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+text = "Tela de início (M)"
+
 [connection signal="timeout" from="Horda" to="." method="_on_horda_timeout"]
 [connection signal="timeout" from="Relogio" to="." method="_on_relogio_timeout"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao1" to="Melhorias" method="_on_botao_1_pressed"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao2" to="Melhorias" method="_on_botao_2_pressed"]
 [connection signal="pressed" from="Melhorias/Opcoes/Botao3" to="Melhorias" method="_on_botao_3_pressed"]
+[connection signal="pressed" from="Pausa/Opcoes/Continuar" to="Pausa" method="continuar"]
+[connection signal="pressed" from="Pausa/Opcoes/Inicio" to="Pausa" method="voltar_ao_inicio"]

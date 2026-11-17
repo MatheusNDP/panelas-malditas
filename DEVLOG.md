@@ -77,3 +77,8 @@ O que fiz: aos 2:15 (faltando 45 s) entra o Panelão pela porta de cima, com avi
 Como fiz: outra cena herdada da panela, com o script panelao.gd estendendo o inimigo.gd. O caldeirão pergunta se a panela tem o método encostou_no_caldeirao(); se tiver, chama em vez de apagar a panela. A colisão dele é só um pouco maior que a das outras (14 x 8, nos pés), para ele continuar cabendo na folga do mapa de navegação, como a ficha Chefe da Aula 10 avisava.
 O que travou: o "pop" de quando a panela nasce levava o desenho de volta para o tamanho 1, e o Panelão encolhia.
 Como resolvi: o pop agora volta para o tamanho que o desenho tinha na cena.
+
+Ainda em 16/11: detalhes.
+O que fiz: pausa com Esc (um CanvasLayer com process_mode Always, para ouvir o Esc com o jogo parado ou não), com os botões continuar e voltar à tela de início (ou a tecla M). No aviso dos fogões agora saem chamas, e no das pias espirra água (CPUParticles2D criados na hora, por cima do retângulo que pisca, agora laranja ou azul). E o XP virou bolinhas verdes no chão: a panela quebrada solta uma bolinha por ponto de XP, que se espalham um pouco e ficam flutuando. Quando o chef chega a 36 px, a bolinha é puxada cada vez mais rápido até ele, faz um "plim" e vira XP. Entrou a melhoria "Ímã de geladeira", que aumenta esse raio em 28 (até 120).
+O que travou: primeiro fiz números de XP ("+1", "+3") subindo de onde a panela quebrava, mas com as bolinhas eles ficaram repetidos e saíram.
+Como resolvi: o XP agora só entra quando a bolinha chega no chef (função ganhar_xp da cozinha); a panela só solta as bolinhas.

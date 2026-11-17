@@ -7,6 +7,7 @@ extends Node2D
 @export var cena_brava: PackedScene
 @export var cena_chaleira: PackedScene
 @export var cena_panelao: PackedScene
+@export var cena_xp: PackedScene
 
 var abates := 0
 var fase_anunciada := 1
@@ -155,11 +156,50 @@ func piscar(modelo: ColorRect) -> void:
 	var aviso := modelo.duplicate() as ColorRect
 	aviso.visible = true
 	modelo.get_parent().add_child(aviso)
+	var chamas := soltar_chamas(aviso)
 	var pisca := create_tween().set_loops(4)
 	pisca.tween_property(aviso, "modulate:a", 0.2, 0.125)
 	pisca.tween_property(aviso, "modulate:a", 1.0, 0.125)
 	await pisca.finished
 	aviso.queue_free()
+	chamas.emitting = false
+	get_tree().create_timer(chamas.lifetime).timeout.connect(chamas.queue_free)
+
+
+# Enquanto o aviso pisca, o fogão solta chamas e a pia espirra água.
+func soltar_chamas(aviso: ColorRect) -> CPUParticles2D:
+	var p := CPUParticles2D.new()
+	p.position = aviso.position + aviso.size / 2
+	p.z_index = 2
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(aviso.size.x / 2 - 4, 3)
+	p.direction = Vector2.UP
+	p.scale_amount_min = 2.5
+	p.scale_amount_max = 4.5
+	var cores := Gradient.new()
+	if aviso.get_parent().name.begins_with("Fogao"):
+		p.amount = 36
+		p.lifetime = 0.55
+		p.spread = 15.0
+		p.gravity = Vector2(0, -60)
+		p.initial_velocity_min = 15.0
+		p.initial_velocity_max = 35.0
+		cores.set_color(0, Color(1, 0.92, 0.45))
+		cores.set_color(1, Color(0.85, 0.15, 0.08, 0))
+		cores.add_point(0.4, Color(1, 0.5, 0.15))
+	else:
+		p.amount = 18
+		p.lifetime = 0.5
+		p.spread = 35.0
+		p.gravity = Vector2(0, 220)
+		p.initial_velocity_min = 35.0
+		p.initial_velocity_max = 65.0
+		cores.set_color(0, Color(0.8, 0.94, 1))
+		cores.set_color(1, Color(0.35, 0.65, 0.95, 0))
+	p.color_ramp = cores
+	aviso.get_parent().add_child(p)
+	p.emitting = true
+	return p
 
 
 func _on_relogio_timeout() -> void:
@@ -167,15 +207,20 @@ func _on_relogio_timeout() -> void:
 
 
 # No tipo Defesa os abates não decidem a vitória (quem decide é o relógio),
-# mas cada panela derrubada dá XP para o chef subir de nível.
+# mas cada panela derrubada solta bolinhas de XP para o chef subir de nível.
 func inimigo_morreu(inimigo: Node2D) -> void:
 	abates += 1
+	soltar_xp(inimigo.global_position, inimigo.xp)
 	if inimigo == panelao:
 		Partida.panelao_derrotado = true
 		tremer(6.0)
 		for i in 3:
 			soltar_particulas(inimigo.global_position + Vector2(randf_range(-10, 10), randf_range(-12, 4)), inimigo.cor_cacos)
-	xp += inimigo.xp
+
+
+# Cada bolinha de XP que chega no chef chama esta função.
+func ganhar_xp(quanto: int) -> void:
+	xp += quanto
 	conferir_nivel()
 
 
@@ -215,6 +260,16 @@ func soltar_particulas(posicao: Vector2, cor: Color, fumaca := false) -> void:
 	p.finished.connect(p.queue_free)
 	add_child(p)
 	p.emitting = true
+
+
+# A panela quebrada solta uma bolinha de XP por ponto, que se espalham um pouco pelo chão.
+func soltar_xp(posicao: Vector2, quanto: int) -> void:
+	for i in quanto:
+		var bolinha := cena_xp.instantiate()
+		bolinha.global_position = posicao
+		add_child(bolinha)
+		var destino := posicao + Vector2.from_angle(randf() * TAU) * randf_range(4.0, 6.0 + quanto * 0.8)
+		bolinha.create_tween().tween_property(bolinha, "global_position", destino, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 # A tela treme um pouco: o caldeirão apanhando, o chef se machucando.

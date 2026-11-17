@@ -21,7 +21,8 @@ Matheus Nunes De Paula
 | Setas ou W A S D | andar |
 | 1, 2, 3 ou o mouse | escolher a melhoria ao subir de nível |
 | Enter | começar, na tela de início, e jogar de novo, na tela de fim |
-| Esc | voltar para a tela de início, na tela de fim |
+| Esc | pausar o jogo (e continuar); na tela de fim, voltar para a tela de início |
+| M | na pausa, voltar para a tela de início |
 
 As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que piscam em vermelho 1 s antes) e vão atrás do caldeirão. Há quatro tipos:
 
@@ -36,7 +37,7 @@ As panelas entram pelas quatro portas ou pulam dos fogões e das pias (que pisca
 
 Cada panela que encosta no caldeirão é um toque, e no 5º toque você perde. O chef ataca sozinho: a faca dá uma volta em torno dele a cada 0,4 s e derruba as panelas que estiverem perto. Vá até elas antes que cheguem ao caldeirão. Encostar no chef também tira 1 de vida, e sem vida você perde. Aguente 3 minutos e você vence.
 
-O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela derrubada dá XP (a de pressão e a chaleira valem 3, a brava 2 e as outras 1). Com XP suficiente o chef sobe de nível, o jogo pausa e você escolhe uma de três melhorias sorteadas:
+O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela derrubada solta bolinhas verdes de XP no chão (a de pressão e a chaleira soltam 3, a brava 2, o Panelão 25 e as outras 1). Quando o chef passa perto, as bolinhas voam até ele e viram XP. Com XP suficiente o chef sobe de nível, o jogo pausa e você escolhe uma de três melhorias sorteadas:
 
 | Melhoria | O que faz |
 | --- | --- |
@@ -46,6 +47,7 @@ O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela de
 | Botas de cozinha | chef 15% mais rápido |
 | Avental reforçado | vida +1 |
 | Tampa no caldeirão | o caldeirão aguenta +1 toque |
+| Ímã de geladeira | puxa as bolinhas de XP de mais longe (+28, até 120) |
 
 O primeiro nível pede 5 XP, e cada nível seguinte pede 5 a mais (10, 15, 20...).
 
@@ -71,6 +73,7 @@ Os 3 minutos têm três fases:
 | depois da `aula-10` | sons e música de fundo |
 | depois da `aula-10` | tela de início, tela de fim com o resumo da partida e recorde de abates salvo |
 | depois da `aula-10` | o Panelão, a panela gigante dos últimos 45 s, com barra de vida |
+| depois da `aula-10` | pausa com Esc, bolinhas de XP com ímã e chamas e água no aviso dos fogões e das pias |
 
 ## Créditos
 

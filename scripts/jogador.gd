@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var vida: int = 3
 # Tempo entre um giro da faca e o próximo; a melhoria "golpe mais rápido" diminui.
 @export var recarga: float = 0.4
+# Até onde as bolinhas de XP são puxadas; a melhoria "ímã de geladeira" aumenta.
+@export var raio_ima: float = 36.0
 
 var invencivel := false
 var pode_atacar := true

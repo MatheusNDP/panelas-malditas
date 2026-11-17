@@ -9,6 +9,7 @@ const TODAS := [
 	{"id": "velocidade", "nome": "Botas de cozinha", "texto": "chef 15% mais rápido"},
 	{"id": "vida", "nome": "Avental reforçado", "texto": "vida +1"},
 	{"id": "caldeirao", "nome": "Tampa no caldeirão", "texto": "aguenta +1 toque"},
+	{"id": "ima", "nome": "Ímã de geladeira", "texto": "puxa o XP de mais longe"},
 ]
 
 var opcoes := []
@@ -39,6 +40,8 @@ func disponivel(melhoria: Dictionary) -> bool:
 		return jogador.forma_ataque.radius < 40
 	if melhoria.id == "recarga":
 		return jogador.recarga > 0.3
+	if melhoria.id == "ima":
+		return jogador.raio_ima < 120
 	return true
 
 
@@ -74,6 +77,8 @@ func aplicar(id: String) -> void:
 			jogador.vida += 1
 		"caldeirao":
 			get_tree().get_first_node_in_group("objeto").limite += 1
+		"ima":
+			jogador.raio_ima += 28.0
 
 
 func _on_botao_1_pressed() -> void:
