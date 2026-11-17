@@ -6,6 +6,8 @@
 [node name="PanelaPressao" instance=ExtResource("1_base")]
 velocidade = 30.0
 vida = 3
+xp = 3
+cor_cacos = Color(0.78, 0.8, 0.85, 1)
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_arte")

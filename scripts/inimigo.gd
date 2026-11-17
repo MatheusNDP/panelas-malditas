@@ -4,8 +4,30 @@ extends CharacterBody2D
 @export var velocidade: float = 40.0
 @export var grupo_alvo: String = "player"
 @export var vida: int = 1
+# Quanto XP o chef ganha ao derrubar esta panela.
+@export var xp: int = 1
+# A cor dos cacos que voam quando a panela quebra.
+@export var cor_cacos: Color = Color(0.77, 0.41, 0.27)
+
+var tempo := 0.0
 
 @onready var agente: NavigationAgent2D = $NavigationAgent2D
+@onready var sprite: Sprite2D = $Sprite2D
+
+
+func _ready() -> void:
+	# A panela surge com um "pop": cresce de zero até o tamanho normal.
+	sprite.scale = Vector2.ZERO
+	create_tween().tween_property(sprite, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+# Andando, a panela vai dando pulinhos.
+func _process(delta: float) -> void:
+	if velocity.length() > 1.0:
+		tempo += delta
+		sprite.position.y = -abs(sin(tempo * 12.0)) * 2.0
+	else:
+		sprite.position.y = 0.0
 
 
 func _physics_process(_delta: float) -> void:
@@ -24,15 +46,14 @@ func _on_timer_timeout() -> void:
 	agente.target_position = alvo.global_position
 
 
-func levar_golpe() -> void:
-	vida -= 1
+func levar_golpe(dano: int = 1) -> void:
+	vida -= dano
 	if vida <= 0:
 		get_tree().current_scene.inimigo_morreu(self)
+		get_tree().current_scene.soltar_particulas(global_position, cor_cacos)
 		queue_free()
 		return
 
-	# Ainda tem vida (a panela de pressão): fica meio transparente por 0,1 s
-	# para mostrar que o golpe pegou.
-	modulate.a = 0.4
-	await get_tree().create_timer(0.1).timeout
-	modulate.a = 1.0
+	# Ainda tem vida: a panela pisca branca para mostrar que o golpe pegou.
+	sprite.modulate = Color(4, 4, 4)
+	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.15)

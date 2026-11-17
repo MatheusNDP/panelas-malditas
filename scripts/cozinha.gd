@@ -5,9 +5,13 @@ extends Node2D
 @export var cena_frigideira: PackedScene
 @export var cena_pressao: PackedScene
 @export var cena_brava: PackedScene
+@export var cena_chaleira: PackedScene
 
 var abates := 0
 var fase_anunciada := 1
+var nivel := 1
+var xp := 0
+var xp_proximo := 5
 
 @onready var horda: Timer = $Horda
 @onready var relogio: Timer = $Relogio
@@ -17,12 +21,18 @@ var fase_anunciada := 1
 @onready var texto_tempo: Label = $HUD/Tempo
 @onready var texto_caldeirao: Label = $HUD/Caldeirao
 @onready var texto_fase: Label = $HUD/Fase
+@onready var texto_nivel: Label = $HUD/Nivel
+@onready var barra_xp: ColorRect = $HUD/BarraXP/Cheia
+@onready var melhorias := $Melhorias
+@onready var camera: Camera2D = $Camera
 
 
 func _process(_delta: float) -> void:
 	texto_vida.text = "Vida: %d   Abates: %d" % [jogador.vida, abates]
 	texto_tempo.text = "Fase %d   Tempo: %d" % [fase(), ceil(relogio.time_left)]
-	texto_caldeirao.text = "Caldeirão: %d / 5" % objeto.toques
+	texto_caldeirao.text = "Caldeirão: %d / %d" % [objeto.toques, objeto.limite]
+	texto_nivel.text = "Nível %d" % nivel
+	barra_xp.size.x = barra_xp.get_parent().size.x * xp / xp_proximo
 
 	if fase() > fase_anunciada:
 		fase_anunciada = fase()
@@ -42,7 +52,7 @@ func fase() -> int:
 
 func anunciar_fase() -> void:
 	if fase_anunciada == 2:
-		texto_fase.text = "Fase 2: os fogões e as pias acordaram!"
+		texto_fase.text = "Fase 2: os fogões acordaram, e a chaleira chegou!"
 	else:
 		texto_fase.text = "Fase 3: chegaram a pressão e a brava!"
 	texto_fase.visible = true
@@ -51,8 +61,10 @@ func anunciar_fase() -> void:
 
 
 func _on_horda_timeout() -> void:
-	# A horda aperta: cada panela chega um pouco mais cedo que a anterior.
-	horda.wait_time = max(0.5, horda.wait_time * 0.95)
+	# A horda aperta com o tempo: começa com uma panela a cada 2 s e chega
+	# a uma a cada 0,5 s no começo da fase 3 (aos 120 s), e fica assim até o fim.
+	var passado := relogio.wait_time - relogio.time_left
+	horda.wait_time = max(0.5, 2.0 - 1.5 * passado / 120.0)
 
 	var nascedouros := $Nascedouros.get_children()
 	# Na fase 1 só as portas soltam panelas; os fogões e as pias acordam na fase 2.
@@ -64,17 +76,26 @@ func _on_horda_timeout() -> void:
 	if nascedouro.has_node("Aviso"):
 		await piscar(nascedouro.get_node("Aviso"))
 	soltar_panela(nascedouro.global_position)
+	soltar_particulas(nascedouro.global_position, Color(0.95, 0.95, 0.95), true)
 
 
 func soltar_panela(posicao: Vector2) -> void:
-	var inimigo := sortear_panela().instantiate()
+	var tipo := sortear_panela()
+	var inimigo := tipo.instantiate()
 	inimigo.global_position = posicao
+	# Na fase 3 as panelas vêm mais duras: a comum aguenta 2 golpes e a de pressão 5.
+	if fase() == 3:
+		if tipo == cena_inimigo:
+			inimigo.vida = 2
+		elif tipo == cena_pressao:
+			inimigo.vida = 5
 	add_child(inimigo)
 
 
 # Cada tipo de panela já sabe na própria cena quem persegue: as panelas comuns,
 # a frigideira e a de pressão vão atrás do caldeirão; a brava vai atrás do chef.
-# Fase 1: só comuns. Fase 2: entram as frigideiras. Fase 3: a pressão e a brava.
+# A chaleira para longe e cospe vapor no caldeirão.
+# Fase 1: só comuns. Fase 2: entram a frigideira e a chaleira. Fase 3: a pressão e a brava.
 func sortear_panela() -> PackedScene:
 	var sorteio := randf()
 	if fase() == 1:
@@ -82,6 +103,8 @@ func sortear_panela() -> PackedScene:
 	if fase() == 2:
 		if sorteio < 0.25:
 			return cena_frigideira
+		if sorteio < 0.35:
+			return cena_chaleira
 		return cena_inimigo
 	if sorteio < 0.2:
 		return cena_frigideira
@@ -89,6 +112,8 @@ func sortear_panela() -> PackedScene:
 		return cena_pressao
 	if sorteio < 0.5:
 		return cena_brava
+	if sorteio < 0.65:
+		return cena_chaleira
 	return cena_inimigo
 
 
@@ -109,9 +134,57 @@ func _on_relogio_timeout() -> void:
 	vencer()
 
 
-# No tipo Defesa os abates só aparecem no placar: quem decide a vitória é o relógio.
-func inimigo_morreu(_inimigo: Node2D) -> void:
+# No tipo Defesa os abates não decidem a vitória (quem decide é o relógio),
+# mas cada panela derrubada dá XP para o chef subir de nível.
+func inimigo_morreu(inimigo: Node2D) -> void:
 	abates += 1
+	xp += inimigo.xp
+	conferir_nivel()
+
+
+# Cada nível pede 5 XP a mais que o anterior: 5, 10, 15, 20...
+func conferir_nivel() -> void:
+	if xp < xp_proximo or melhorias.visible:
+		return
+	xp -= xp_proximo
+	nivel += 1
+	xp_proximo += 5
+	melhorias.abrir(nivel)
+
+
+# Efeito de partículas que some sozinho: cacos caindo quando uma panela quebra,
+# ou fumaça subindo quando uma panela nasce.
+func soltar_particulas(posicao: Vector2, cor: Color, fumaca := false) -> void:
+	var p := CPUParticles2D.new()
+	p.position = posicao
+	p.z_index = 2
+	p.one_shot = true
+	p.explosiveness = 1.0
+	p.amount = 10 if fumaca else 14
+	p.lifetime = 0.6 if fumaca else 0.5
+	p.direction = Vector2.UP
+	p.spread = 70.0 if fumaca else 180.0
+	p.gravity = Vector2(0, -40) if fumaca else Vector2(0, 260)
+	p.initial_velocity_min = 15.0 if fumaca else 50.0
+	p.initial_velocity_max = 35.0 if fumaca else 110.0
+	p.scale_amount_min = 2.0 if fumaca else 1.5
+	p.scale_amount_max = 4.0 if fumaca else 3.0
+	p.color = cor
+	var some := Gradient.new()
+	some.set_color(0, Color.WHITE)
+	some.set_color(1, Color(1, 1, 1, 0))
+	p.color_ramp = some
+	p.finished.connect(p.queue_free)
+	add_child(p)
+	p.emitting = true
+
+
+# A tela treme um pouco: o caldeirão apanhando, o chef se machucando.
+func tremer(forca: float) -> void:
+	var tremor := create_tween()
+	for i in 6:
+		tremor.tween_property(camera, "offset", Vector2(randf_range(-forca, forca), randf_range(-forca, forca)), 0.03)
+	tremor.tween_property(camera, "offset", Vector2.ZERO, 0.03)
 
 
 # call_deferred: troca de cena só no fim do quadro, quando a física terminou.

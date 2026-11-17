@@ -5,6 +5,7 @@
 
 [node name="Frigideira" instance=ExtResource("1_base")]
 velocidade = 60.0
+cor_cacos = Color(0.3, 0.31, 0.36, 1)
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_arte")

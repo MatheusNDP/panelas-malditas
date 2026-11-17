@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://entities/inimigo.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://sprites/chaleira.png" id="2_arte"]
+[ext_resource type="Script" path="res://scripts/chaleira.gd" id="3_script"]
+[ext_resource type="PackedScene" path="res://entities/vapor.tscn" id="4_vapor"]
+
+[node name="Chaleira" instance=ExtResource("1_base")]
+script = ExtResource("3_script")
+velocidade = 35.0
+vida = 2
+xp = 3
+cena_vapor = ExtResource("4_vapor")
+cor_cacos = Color(0.3, 0.62, 0.68, 1)
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_arte")
+
+[node name="Cuspe" type="Timer" parent="." unique_id=1956847312]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Cuspe" to="." method="_on_cuspe_timeout"]

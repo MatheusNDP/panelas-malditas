@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://lqdkj2jiosv4" path="res://scripts/jogador.gd" id="1_m0gj8"]
 [ext_resource type="Texture2D" uid="uid://de7b681c1y3j3" path="res://sprites/chef.png" id="2_mi7s2"]
 [ext_resource type="Texture2D" path="res://sprites/faca.png" id="3_faca"]
+[ext_resource type="Texture2D" path="res://sprites/sombra.png" id="4_sombra"]
+[ext_resource type="Texture2D" path="res://sprites/rastro.png" id="5_rastro"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as3f3"]
 atlas = ExtResource("2_mi7s2")
@@ -150,6 +152,7 @@ radius = 24.0
 
 [node name="Jogador" type="CharacterBody2D" unique_id=887535217 groups=["player"]]
 collision_layer = 2
+collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_m0gj8")
 
@@ -157,6 +160,10 @@ script = ExtResource("1_m0gj8")
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_dk2l0")
 animation = &"baixo"
+
+[node name="Sombra" type="Sprite2D" parent="." unique_id=1513928476]
+position = Vector2(0, 7)
+texture = ExtResource("4_sombra")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=794241817]
 position = Vector2(0, 5)
@@ -176,6 +183,12 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ataque" unique_id=1906756883]
 shape = SubResource("CircleShape2D_6odg7")
+
+[node name="Rastro" type="Sprite2D" parent="Ataque" unique_id=1624039587]
+visible = false
+z_index = 2
+scale = Vector2(0.875, 0.875)
+texture = ExtResource("5_rastro")
 
 [node name="Faca" type="Sprite2D" parent="Ataque" unique_id=1530187264]
 visible = false

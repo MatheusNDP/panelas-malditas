@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/inimigo.gd" id="1_dc5j5"]
 [ext_resource type="Texture2D" path="res://sprites/panela.png" id="2_k3jr6"]
+[ext_resource type="Texture2D" path="res://sprites/sombra.png" id="3_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xex7k"]
 size = Vector2(10, 6)
@@ -16,6 +17,10 @@ grupo_alvo = "objeto"
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=347214645]
 z_index = 1
 texture = ExtResource("2_k3jr6")
+
+[node name="Sombra" type="Sprite2D" parent="." unique_id=1402817365]
+position = Vector2(0, 7)
+texture = ExtResource("3_sombra")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1947547598]
 position = Vector2(0, 5)

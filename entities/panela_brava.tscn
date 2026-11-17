@@ -6,6 +6,8 @@
 [node name="PanelaBrava" instance=ExtResource("1_base")]
 velocidade = 45.0
 grupo_alvo = "player"
+xp = 2
+cor_cacos = Color(0.86, 0.2, 0.15, 1)
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_arte")

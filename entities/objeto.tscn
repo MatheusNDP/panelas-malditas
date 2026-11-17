@@ -2,18 +2,59 @@
 
 [ext_resource type="Script" path="res://scripts/objeto.gd" id="1_qlu4h"]
 [ext_resource type="Texture2D" path="res://sprites/caldeirao.png" id="2_00ue7"]
+[ext_resource type="Texture2D" path="res://sprites/tapete.png" id="3_tapete"]
+[ext_resource type="Texture2D" path="res://sprites/sombra.png" id="4_sombra"]
+
+[sub_resource type="Gradient" id="Gradient_fumaca"]
+colors = PackedColorArray(1, 1, 1, 0.75, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csx40"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_corpo"]
+radius = 9.0
 
 [node name="Objeto" type="Area2D" unique_id=477264680 groups=["objeto"]]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_qlu4h")
 
+[node name="Tapete" type="Sprite2D" parent="." unique_id=1735140698]
+position = Vector2(0, 6)
+texture = ExtResource("3_tapete")
+
+[node name="Sombra" type="Sprite2D" parent="." unique_id=1846251709]
+position = Vector2(0, 11)
+scale = Vector2(1.7, 1.4)
+texture = ExtResource("4_sombra")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=631091675]
 texture = ExtResource("2_00ue7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=813863622]
 shape = SubResource("CircleShape2D_csx40")
+
+[node name="Corpo" type="StaticBody2D" parent="." unique_id=1734625190]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Corpo" unique_id=1845736201]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_corpo")
+
+[node name="Fumaca" type="CPUParticles2D" parent="." unique_id=1957362810]
+z_index = 2
+position = Vector2(0, -2)
+amount = 10
+lifetime = 1.6
+emission_shape = 3
+emission_rect_extents = Vector2(7, 1)
+direction = Vector2(0, -1)
+spread = 12.0
+gravity = Vector2(0, -12)
+initial_velocity_min = 6.0
+initial_velocity_max = 12.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_fumaca")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
