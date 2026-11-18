@@ -76,5 +76,7 @@ func levar_golpe(dano: int = 1) -> void:
 
 	# Ainda tem vida: a panela pisca branca para mostrar que o golpe pegou.
 	Som.tocar("acerto", -3.0)
+	# TWEEN_PAUSE_STOP: a piscada roda mesmo com a panela congelada (process_mode desligado)
+	# e só para quando o jogo inteiro está pausado.
 	sprite.modulate = Color(4, 4, 4)
-	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.15)
+	create_tween().set_pause_mode(Tween.TWEEN_PAUSE_STOP).tween_property(sprite, "modulate", Color.WHITE, 0.15)

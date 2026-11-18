@@ -343,9 +343,12 @@ func pegar_power_up(tipo: String, posicao: Vector2) -> void:
 
 # Todas as panelas param por uns segundos: o process_mode desligado congela o movimento,
 # os timers (o cuspe da chaleira, a pancada do Panelão) e as animações delas.
+# O disable_mode KEEP_ACTIVE deixa o corpo na física mesmo desligado: sem ele a panela
+# congelada sairia do mundo físico e as armas passariam direto por ela.
 func congelar_panelas(segundos: float) -> void:
 	var congeladas := get_tree().get_nodes_in_group("inimigo")
 	for panela in congeladas:
+		panela.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
 		panela.process_mode = Node.PROCESS_MODE_DISABLED
 		panela.modulate = Color(0.6, 0.85, 1.4)
 	await get_tree().create_timer(segundos, false).timeout
