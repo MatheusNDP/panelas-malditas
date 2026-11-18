@@ -48,7 +48,6 @@ O chef não consegue subir no caldeirão, só ficar do lado dele. Cada panela de
 | Botas | chef 15% mais rápido |
 | Vida +1 | vida +1 |
 | Caldeirão +1 | o caldeirão aguenta +1 toque |
-| Ímã | puxa as bolinhas de XP de mais longe (+28, até 120) |
 
 Além das melhorias, o sorteio oferece armas novas (o cartão diz "NOVA"). Cada arma, depois de escolhida, também aparece no sorteio para subir de nível, até o 5 (o cartão diz "Nv 2", "Nv 3"...):
 
@@ -57,8 +56,8 @@ Além das melhorias, o sorteio oferece armas novas (o cartão diz "NOVA"). Cada 
 | Faca (a do começo) | gira em volta do chef e acerta quem estiver perto |
 | Panelaço | o chef bate uma tampa e solta uma onda para todos os lados, que acerta e empurra as panelas |
 | Garfos | arremessa garfos nas panelas mais perto; o garfo atravessa panelas e para na parede |
-| Colheres | colheres que giram em volta do chef o tempo todo |
-| Azeite | derrama uma poça perto das panelas, que queima e deixa quem pisa mais lento |
+| Colheres | colheres que giram longe do chef o tempo todo, por fora da faca e no sentido contrário |
+| Pote de mel | joga uma poça de mel perto das panelas, que gruda, machuca e deixa quem pisa mais lento |
 
 O primeiro nível pede 5 XP, e cada nível seguinte pede 5 a mais (10, 15, 20...).
 
@@ -70,7 +69,7 @@ A cada 12 s aparece um power-up num lugar sorteado do chão (no máximo 3 ao mes
 | Pimenta | chef 60% mais rápido por 8 s |
 | Coxinha | vida +1 (só aparece quando o chef está machucado) |
 | Gelo | congela todas as panelas por 4 s |
-| Concha de sopa | o caldeirão recupera 1 toque (só aparece quando ele já apanhou) |
+| Tampa | o caldeirão não leva toque por 6 s |
 
 Os 3 minutos têm três fases:
 
@@ -98,6 +97,7 @@ Os 3 minutos têm três fases:
 | depois da `aula-10` | quatro armas novas (Panelaço, Garfos, Colheres de pau e Azeite quente), cada uma com 5 níveis |
 | depois da `aula-10` | power-ups no chão: ímã, pimenta, coxinha, gelo e concha de sopa |
 | depois da `aula-10` | tela de nível com cartões (desenho e nome) e a pausa como um livro de receitas que explica cada item |
+| depois da `aula-10` | sem itens repetidos: a Tampa no lugar da concha de sopa, as colheres por fora da faca, o Pote de mel no lugar do azeite e sem o tempero de ímã |
 
 ## Créditos
 

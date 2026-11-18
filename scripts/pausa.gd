@@ -9,8 +9,8 @@ const SECOES := [
 		[preload("res://sprites/icone_faca_maior.png"), "Faca", "Gira sozinha em volta do chef."],
 		[preload("res://sprites/icone_panelaco.png"), "Panelaço", "Onda para todos os lados que empurra as panelas."],
 		[preload("res://sprites/icone_garfos.png"), "Garfos", "Voam nas panelas mais perto e atravessam."],
-		[preload("res://sprites/icone_colheres.png"), "Colheres", "Giram em volta do chef sem parar."],
-		[preload("res://sprites/icone_azeite.png"), "Azeite", "Poça que queima e deixa as panelas lentas."],
+		[preload("res://sprites/icone_colheres.png"), "Colheres", "Giram longe do chef, por fora da faca."],
+		[preload("res://sprites/icone_mel.png"), "Pote de mel", "Poça grudenta que prende e machuca as panelas."],
 	]},
 	{"titulo": "Temperos", "itens": [
 		[preload("res://sprites/icone_faca_maior.png"), "Faca maior", "A faca alcança mais longe."],
@@ -19,14 +19,13 @@ const SECOES := [
 		[preload("res://sprites/icone_bota.png"), "Botas", "O chef anda mais rápido."],
 		[preload("res://sprites/icone_coracao.png"), "Vida +1", "Mais uma vida para o chef."],
 		[preload("res://sprites/icone_caldeirao.png"), "Caldeirão +1", "O caldeirão aguenta mais um toque."],
-		[preload("res://sprites/icone_ima.png"), "Ímã", "Puxa o XP de mais longe."],
 	]},
 	{"titulo": "Achados da despensa", "itens": [
 		[preload("res://sprites/power_ima.png"), "Ímã", "Todo o XP do chão vem até você."],
 		[preload("res://sprites/power_pimenta.png"), "Pimenta", "Chef bem mais rápido por 8 s."],
 		[preload("res://sprites/power_coxinha.png"), "Coxinha", "Recupera uma vida."],
 		[preload("res://sprites/power_gelo.png"), "Gelo", "Congela as panelas por 4 s."],
-		[preload("res://sprites/power_concha.png"), "Sopa", "O caldeirão recupera um toque."],
+		[preload("res://sprites/power_tampa.png"), "Tampa", "O caldeirão não leva toque por 6 s."],
 	]},
 	{"titulo": "Panelas rebeldes", "itens": [
 		[preload("res://sprites/panela.png"), "Panela", "Vai direto no caldeirão."],

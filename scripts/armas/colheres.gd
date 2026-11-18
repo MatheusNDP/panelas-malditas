@@ -1,4 +1,5 @@
-# Colheres de pau: giram em volta do chef o tempo todo e batem em quem estiver no caminho.
+# Colheres de pau: giram longe do chef o tempo todo, num anel fora do alcance da faca,
+# e no sentido contrário dela, batendo em quem estiver no caminho.
 extends Node2D
 
 const NOME := "Colheres de pau"
@@ -7,7 +8,8 @@ const NOME := "Colheres de pau"
 
 var nivel := 1
 var quantidade := 2
-var raio := 34.0
+# A faca alcança no máximo 44 px (raio 40 + a ponta); as colheres giram além disso.
+var raio := 56.0
 var velocidade_giro := 3.0
 var dano := 1
 var angulo := 0.0
@@ -28,7 +30,7 @@ func montar() -> void:
 
 
 func _process(delta: float) -> void:
-	angulo += velocidade_giro * delta
+	angulo -= velocidade_giro * delta
 	var colheres := get_children().filter(func(c: Node) -> bool: return not c.is_queued_for_deletion())
 	for i in colheres.size():
 		var a := angulo + TAU * i / colheres.size()

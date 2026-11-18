@@ -294,13 +294,11 @@ func power_ups_no_chao() -> int:
 	return get_tree().get_nodes_in_group("power_up").size() + power_ups_chegando
 
 
-# A Coxinha só vale com o chef machucado, e a Concha com o caldeirão já tendo apanhado.
+# A Coxinha só vale com o chef machucado.
 func sortear_power_up() -> String:
-	var tipos := ["ima", "ima", "pimenta", "gelo"]
+	var tipos := ["ima", "ima", "pimenta", "gelo", "tampa"]
 	if jogador.vida < jogador.vida_maxima:
 		tipos.append("coxinha")
-	if objeto.toques > 0:
-		tipos.append("concha")
 	return tipos.pick_random()
 
 
@@ -336,9 +334,9 @@ func pegar_power_up(tipo: String, posicao: Vector2) -> void:
 		"gelo":
 			mostrar_texto("Gelo!")
 			congelar_panelas(4.0)
-		"concha":
-			mostrar_texto("Sopa!")
-			objeto.toques = max(0, objeto.toques - 1)
+		"tampa":
+			mostrar_texto("Tampa!")
+			objeto.tampar(6.0)
 
 
 # Todas as panelas param por uns segundos: o process_mode desligado congela o movimento,

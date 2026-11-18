@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/armas/poca.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://sprites/azeite.png" id="2_arte"]
+[ext_resource type="Texture2D" path="res://sprites/poca_mel.png" id="2_arte"]
 
 [node name="Poca" type="Area2D" unique_id=1801000050]
 collision_layer = 0

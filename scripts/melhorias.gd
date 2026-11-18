@@ -10,7 +10,6 @@ const TODAS := [
 	{"id": "velocidade", "nome": "Botas", "icone": preload("res://sprites/icone_bota.png")},
 	{"id": "vida", "nome": "Vida +1", "icone": preload("res://sprites/icone_coracao.png")},
 	{"id": "caldeirao", "nome": "Caldeirão +1", "icone": preload("res://sprites/icone_caldeirao.png")},
-	{"id": "ima", "nome": "Ímã", "icone": preload("res://sprites/icone_ima.png")},
 ]
 
 # As armas novas: cada uma vira um filho do nó Armas do chef quando é escolhida.
@@ -18,7 +17,7 @@ const ARMAS := {
 	"panelaco": {"cena": preload("res://entities/armas/panelaco.tscn"), "nome": "Panelaço", "icone": preload("res://sprites/icone_panelaco.png")},
 	"garfos": {"cena": preload("res://entities/armas/garfos.tscn"), "nome": "Garfos", "icone": preload("res://sprites/icone_garfos.png")},
 	"colheres": {"cena": preload("res://entities/armas/colheres.tscn"), "nome": "Colheres", "icone": preload("res://sprites/icone_colheres.png")},
-	"azeite": {"cena": preload("res://entities/armas/azeite.tscn"), "nome": "Azeite", "icone": preload("res://sprites/icone_azeite.png")},
+	"mel": {"cena": preload("res://entities/armas/mel.tscn"), "nome": "Pote de mel", "icone": preload("res://sprites/icone_mel.png")},
 }
 const NIVEL_MAXIMO := 5
 
@@ -65,8 +64,6 @@ func disponivel(melhoria: Dictionary) -> bool:
 		return jogador.forma_ataque.radius < 40
 	if melhoria.id == "recarga":
 		return jogador.recarga > 0.3
-	if melhoria.id == "ima":
-		return jogador.raio_ima < 120
 	return true
 
 
@@ -113,8 +110,6 @@ func aplicar(id: String) -> void:
 			jogador.vida_maxima += 1
 		"caldeirao":
 			get_tree().get_first_node_in_group("objeto").limite += 1
-		"ima":
-			jogador.raio_ima += 28.0
 
 
 func _on_botao_1_pressed() -> void:

@@ -15,7 +15,7 @@ extends CharacterBody2D
 
 var tempo := 0.0
 var empurrao := Vector2.ZERO
-# Segundos que a panela ainda anda pela metade (pisou no azeite quente).
+# Segundos que a panela ainda anda pela metade (pisou no mel).
 var lentidao := 0.0
 
 @onready var agente: NavigationAgent2D = $NavigationAgent2D

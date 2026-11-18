@@ -1,8 +1,8 @@
-# Azeite quente: o chef derrama uma poça de azeite fervendo onde há panelas por perto.
-# Quem pisa na poça anda pela metade e se queima a cada meio segundo.
+# Pote de mel: o chef joga uma poça de mel grudento onde há panelas por perto.
+# Quem pisa na poça fica preso, anda pela metade e se desgasta a cada meio segundo.
 extends Node2D
 
-const NOME := "Azeite quente"
+const NOME := "Pote de mel"
 
 @export var cena_poca: PackedScene
 
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 	poca.dano = dano
 	poca.duracao = duracao
 	get_tree().current_scene.add_child(poca)
-	Som.tocar("chiado", -8.0)
+	Som.tocar("mel", -6.0)
 
 
 func subir_nivel() -> void:

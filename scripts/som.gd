@@ -18,6 +18,7 @@ const SONS := {
 	"panelaco": preload("res://sons/panelaco.wav"),
 	"powerup": preload("res://sons/powerup.wav"),
 	"pagina": preload("res://sons/pagina.wav"),
+	"mel": preload("res://sons/mel.wav"),
 }
 
 var tocadores: Array[AudioStreamPlayer] = []

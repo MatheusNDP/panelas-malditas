@@ -1,4 +1,4 @@
-# A poça de azeite quente no chão: deixa as panelas lentas e queima a cada 0,5 s.
+# A poça de mel no chão: gruda nas panelas, deixa elas lentas e machuca a cada 0,5 s.
 extends Area2D
 
 var raio := 18.0

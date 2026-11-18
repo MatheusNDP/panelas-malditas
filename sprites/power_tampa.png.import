@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2t3h1rh47saa"
-path="res://.godot/imported/azeite.png-143be985d42ebc7b04164b4019299fa9.ctex"
+uid="uid://bv7ppboqs583y"
+path="res://.godot/imported/power_tampa.png-e2a2a2b9eefa46c69a9bf0f24ba1f0da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/azeite.png"
-dest_files=["res://.godot/imported/azeite.png-143be985d42ebc7b04164b4019299fa9.ctex"]
+source_file="res://sprites/power_tampa.png"
+dest_files=["res://.godot/imported/power_tampa.png-e2a2a2b9eefa46c69a9bf0f24ba1f0da.ctex"]
 
 [params]
 

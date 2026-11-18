@@ -7,7 +7,7 @@ const ARTES := {
 	"pimenta": preload("res://sprites/power_pimenta.png"),
 	"coxinha": preload("res://sprites/power_coxinha.png"),
 	"gelo": preload("res://sprites/power_gelo.png"),
-	"concha": preload("res://sprites/power_concha.png"),
+	"tampa": preload("res://sprites/power_tampa.png"),
 }
 const DURACAO := 15.0
 
