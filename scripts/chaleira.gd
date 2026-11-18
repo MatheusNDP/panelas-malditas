@@ -12,6 +12,14 @@ var apitou := false
 
 
 func _physics_process(delta: float) -> void:
+	# Mordida por um rato do Ratatui ou tonta do Gongo: fica travada e não cospe vapor.
+	if mordida > 0.0 or tonta > 0.0:
+		parada = false
+		apitou = false
+		cuspe.stop()
+		super(delta)
+		return
+
 	var alvo := get_tree().get_first_node_in_group(grupo_alvo) as Node2D
 	parada = alvo != null and global_position.distance_to(alvo.global_position) <= distancia_tiro
 	if not parada:

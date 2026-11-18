@@ -5,6 +5,8 @@ extends Node2D
 const NOME := "Panelaço"
 
 var nivel := 1
+# Evoluída, vira o Gongo: onda enorme e dourada que deixa as panelas tontas.
+var evoluida := false
 var raio_max := 60.0
 var dano := 1
 var recarga := 3.0
@@ -28,6 +30,8 @@ func _process(delta: float) -> void:
 			continue
 		acertadas.append(panela)
 		panela.empurrar(global_position.direction_to(panela.global_position), 170.0)
+		if evoluida:
+			panela.tonta = 1.0
 		panela.levar_golpe(dano)
 	if raio >= raio_max:
 		raio = 0.0
@@ -46,16 +50,31 @@ func _draw() -> void:
 	if raio == 0.0:
 		return
 	var forca := 1.0 - raio / raio_max
-	draw_arc(Vector2.ZERO, raio, 0.0, TAU, 48, Color(1, 0.96, 0.75, 0.85 * forca), 3.0)
-	draw_arc(Vector2.ZERO, max(1.0, raio - 5.0), 0.0, TAU, 48, Color(1, 0.75, 0.35, 0.45 * forca), 2.0)
+	# O Gongo desenha a onda dourada e mais grossa.
+	var fora := Color(1, 0.85, 0.3) if evoluida else Color(1, 0.96, 0.75)
+	var dentro := Color(1, 0.6, 0.15) if evoluida else Color(1, 0.75, 0.35)
+	var grossura := 5.0 if evoluida else 3.0
+	draw_arc(Vector2.ZERO, raio, 0.0, TAU, 64, Color(fora, 0.85 * forca), grossura)
+	draw_arc(Vector2.ZERO, max(1.0, raio - 5.0), 0.0, TAU, 64, Color(dentro, 0.45 * forca), grossura - 1.0)
 
 
 func subir_nivel() -> void:
 	nivel += 1
+	# Três níveis: o 3 fica igual ao antigo nível 5 (95 px, 3 de dano, a cada 2,2 s).
 	match nivel:
-		2: raio_max += 15.0
-		3: dano += 1
-		4: recarga = 2.2
-		5:
+		2:
+			raio_max += 15.0
+			dano += 1
+		3:
 			raio_max += 20.0
 			dano += 1
+			recarga = 2.2
+
+
+# Gongo (Panelaço no nível 3): onda de 120 px a cada 2 s, 4 de dano,
+# e as panelas atingidas ficam tontas, paradas, por 1 s.
+func evoluir() -> void:
+	evoluida = true
+	raio_max = 120.0
+	dano = 4
+	recarga = 2.0

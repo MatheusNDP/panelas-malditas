@@ -21,10 +21,12 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	for panela in get_overlapping_bodies():
+	for corpo in get_overlapping_areas():
+		var panela = corpo.get_parent()
 		panela.lentidao = 0.3
 
 
 func _on_queima_timeout() -> void:
-	for panela in get_overlapping_bodies():
+	for corpo in get_overlapping_areas():
+		var panela = corpo.get_parent()
 		panela.levar_golpe(dano)

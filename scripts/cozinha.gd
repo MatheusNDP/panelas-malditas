@@ -10,15 +10,26 @@ extends Node2D
 @export var cena_xp: PackedScene
 @export var cena_power_up: PackedScene
 
+const XP_POR_FASE := {
+	1: {"arte": preload("res://sprites/xp.png"), "valor": 1.0},
+	2: {"arte": preload("res://sprites/xp_azul.png"), "valor": 1.5},
+	3: {"arte": preload("res://sprites/xp_vermelho.png"), "valor": 2.0},
+}
+
 var abates := 0
 var fase_anunciada := 1
 var nivel := 1
-var xp := 0
+# O XP é quebrado (float) porque as bolinhas azuis valem 1,5.
+var xp := 0.0
 var xp_proximo := 5
 var panelao: Node2D = null
 # Power-ups que já foram soltos mas ainda não entraram na cena (entram no fim do quadro).
 var power_ups_chegando := 0
 var panelao_veio := false
+# Depois de vencer, o jogador pode continuar a mesma partida: a hora extra, no ritmo
+# da fase 3, que só acaba quando ele perde.
+var hora_extra := false
+var tempo_extra := 0.0
 
 @onready var horda: Timer = $Horda
 @onready var relogio: Timer = $Relogio
@@ -39,11 +50,16 @@ var panelao_veio := false
 func _ready() -> void:
 	Som.tocar_musica()
 	Partida.panelao_derrotado = false
+	Partida.hora_extra = 0.0
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	texto_vida.text = "Vida: %d   Abates: %d" % [jogador.vida, abates]
 	texto_tempo.text = "Fase %d   Tempo: %d" % [fase(), ceil(relogio.time_left)]
+	# Na hora extra o relógio conta para cima o tempo a mais.
+	if hora_extra:
+		tempo_extra += delta
+		texto_tempo.text = "Hora extra: %d:%02d" % [int(tempo_extra) / 60, int(tempo_extra) % 60]
 	texto_caldeirao.text = "Caldeirão: %d / %d" % [objeto.toques, objeto.limite]
 	texto_nivel.text = "Nível %d" % nivel
 	barra_xp.size.x = barra_xp.get_parent().size.x * xp / xp_proximo
@@ -82,7 +98,8 @@ func anunciar_fase() -> void:
 
 func chamar_panelao() -> void:
 	panelao = cena_panelao.instantiate()
-	panelao.global_position = $Nascedouros/Cima.global_position + Vector2(0, 8)
+	# Ele entra pela porta da esquerda, um pouco para dentro da sala.
+	panelao.global_position = $Nascedouros/Esquerda.global_position + Vector2(8, 0)
 	add_child(panelao)
 	soltar_particulas(panelao.global_position, Color(0.95, 0.95, 0.95), true)
 	tremer(5.0)
@@ -116,12 +133,9 @@ func soltar_panela(posicao: Vector2) -> void:
 	var tipo := sortear_panela()
 	var inimigo := tipo.instantiate()
 	inimigo.global_position = posicao
-	# Na fase 3 as panelas vêm mais duras: a comum aguenta 2 golpes e a de pressão 5.
-	if fase() == 3:
-		if tipo == cena_inimigo:
-			inimigo.vida = 2
-		elif tipo == cena_pressao:
-			inimigo.vida = 5
+	# A cada fase as panelas vêm mais duras: +1 de vida na fase 2 e +2 na fase 3,
+	# em cima da vida de cada tipo (a comum aguenta 1, 2 e 3 golpes).
+	inimigo.vida += fase() - 1
 	add_child(inimigo)
 
 
@@ -224,20 +238,38 @@ func inimigo_morreu(inimigo: Node2D) -> void:
 
 
 # Cada bolinha de XP que chega no chef chama esta função.
-func ganhar_xp(quanto: int) -> void:
+func ganhar_xp(quanto: float) -> void:
 	xp += quanto
 	conferir_nivel()
 
 
-# Cada nível pede 5 XP a mais que o anterior: 5, 10, 15, 20...
+# Cada nível pede 3 XP a mais que o anterior: 5, 8, 11, 14...
+# (Era +5, e no fim da partida o chef demorava demais para subir.)
 func conferir_nivel() -> void:
 	if xp < xp_proximo or melhorias.visible:
 		return
 	xp -= xp_proximo
 	nivel += 1
-	xp_proximo += 5
+	xp_proximo += 3
 	Som.tocar("nivel", 0.0, false)
 	melhorias.abrir(nivel)
+
+
+# Uma arma chegou no nível 3 (ou a faca no raio máximo) e evoluiu: brilho dourado,
+# o som de fase e o nome da evolução em letras grandes no meio da tela.
+func anunciar_evolucao(nome: String) -> void:
+	efeito_evolucao()
+	texto_fase.text = "%s!" % nome.to_upper()
+	texto_fase.visible = true
+	await get_tree().create_timer(2.5).timeout
+	texto_fase.visible = false
+
+
+# Brilho dourado em volta do chef e o som de fase.
+func efeito_evolucao() -> void:
+	Som.tocar("fase", 0.0, false)
+	for i in 4:
+		soltar_particulas(jogador.global_position + Vector2.from_angle(TAU * i / 4) * 10, Color(1, 0.85, 0.35), true)
 
 
 # Efeito de partículas que some sozinho: cacos caindo quando uma panela quebra,
@@ -268,10 +300,14 @@ func soltar_particulas(posicao: Vector2, cor: Color, fumaca := false) -> void:
 
 
 # A panela quebrada solta uma bolinha de XP por ponto, que se espalham um pouco pelo chão.
+# A cor e o valor da bolinha mudam com a fase, porque as panelas também ficam mais duras:
+# verde vale 1 (fase 1), azul vale 1,5 (fase 2) e vermelha vale 2 (fase 3).
 func soltar_xp(posicao: Vector2, quanto: int) -> void:
 	for i in quanto:
 		var bolinha := cena_xp.instantiate()
 		bolinha.global_position = posicao
+		bolinha.texture = XP_POR_FASE[fase()].arte
+		bolinha.valor = XP_POR_FASE[fase()].valor
 		add_child(bolinha)
 		var destino := posicao + Vector2.from_angle(randf() * TAU) * randf_range(4.0, 6.0 + quanto * 0.8)
 		bolinha.create_tween().tween_property(bolinha, "global_position", destino, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
@@ -383,13 +419,32 @@ func tremer(forca: float) -> void:
 	tremor.tween_property(camera, "offset", Vector2.ZERO, 0.03)
 
 
-# call_deferred: troca de cena só no fim do quadro, quando a física terminou.
+# Venceu os 3 minutos: a tela de fim aparece por cima da cozinha, com o jogo pausado,
+# para dar para continuar a mesma partida (a hora extra) pelo botão "Continuar Jogando".
 func vencer() -> void:
 	Partida.terminar(true, "", abates, nivel, relogio.wait_time)
-	get_tree().change_scene_to_file.call_deferred("res://scenes/fim.tscn")
+	var tela := CanvasLayer.new()
+	tela.layer = 20
+	tela.process_mode = Node.PROCESS_MODE_ALWAYS
+	tela.add_child(preload("res://scenes/fim.tscn").instantiate())
+	add_child(tela)
+	get_tree().paused = true
+
+
+# O botão "Continuar Jogando" da vitória: a horda segue no ritmo da fase 3 até o jogador perder.
+func continuar_hora_extra() -> void:
+	hora_extra = true
+	get_tree().paused = false
+	Som.tocar_musica()
+	texto_fase.text = "HORA EXTRA!"
+	texto_fase.visible = true
+	await get_tree().create_timer(2.5).timeout
+	texto_fase.visible = false
 
 
 # motivo: "caldeirao" quando a sopa se perde, "chef" quando o chef fica sem vida.
+# call_deferred: troca de cena só no fim do quadro, quando a física terminou.
 func perder(motivo := "caldeirao") -> void:
-	Partida.terminar(false, motivo, abates, nivel, relogio.wait_time - relogio.time_left)
+	Partida.hora_extra = tempo_extra
+	Partida.terminar(false, motivo, abates, nivel, relogio.wait_time - relogio.time_left + tempo_extra)
 	get_tree().change_scene_to_file.call_deferred("res://scenes/fim.tscn")

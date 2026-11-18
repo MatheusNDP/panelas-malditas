@@ -6,11 +6,12 @@ extends CanvasLayer
 # Cada seção ocupa uma página; o livro mostra duas por vez.
 const SECOES := [
 	{"titulo": "Utensílios", "itens": [
-		[preload("res://sprites/icone_faca_maior.png"), "Faca", "Gira sozinha em volta do chef."],
+		[preload("res://sprites/icone_faca.png"), "Faca", "Gira sozinha em volta do chef."],
 		[preload("res://sprites/icone_panelaco.png"), "Panelaço", "Onda para todos os lados que empurra as panelas."],
-		[preload("res://sprites/icone_garfos.png"), "Garfos", "Voam nas panelas mais perto e atravessam."],
-		[preload("res://sprites/icone_colheres.png"), "Colheres", "Giram longe do chef, por fora da faca."],
+		[preload("res://sprites/icone_garfos.png"), "Talheres", "Facas e garfos voam nas panelas mais perto."],
+		[preload("res://sprites/icone_colheres.png"), "Colher suspeita", "Já vi isso em algum lugar..."],
 		[preload("res://sprites/icone_mel.png"), "Pote de mel", "Poça grudenta que prende e machuca as panelas."],
+		[preload("res://sprites/icone_ratatui.png"), "Ratatui", "Ratinhos que mordem e seguram as panelas."],
 	]},
 	{"titulo": "Temperos", "itens": [
 		[preload("res://sprites/icone_faca_maior.png"), "Faca maior", "A faca alcança mais longe."],
@@ -35,12 +36,23 @@ const SECOES := [
 		[preload("res://sprites/chaleira.png"), "Chaleira", "Cospe vapor de longe. Entre na frente!"],
 		[preload("res://sprites/panelao.png"), "Panelão", "Chega no fim e bate no caldeirão sem parar."],
 	]},
+	# Cada arma, quando chega no nível 3, evolui sozinha.
+	{"titulo": "Evoluções", "itens": [
+		[preload("res://sprites/evo_cutelo.png"), "Cutelo do Chef", "Faca maior no máximo: duas lâminas que batem mais forte."],
+		[preload("res://sprites/evo_gongo.png"), "Gongo", "Panelaço no Nv 3: onda gigante que deixa as panelas tontas."],
+		[preload("res://sprites/evo_faqueiro.png"), "Faqueiro", "Talheres no Nv 3: talheres para todos os lados."],
+	]},
+	{"titulo": "Mais evoluções", "itens": [
+		[preload("res://sprites/evo_batucada.png"), "Batucada", "Colher suspeita no Nv 3: cada pancada empurra as panelas em volta."],
+		[preload("res://sprites/evo_rastro_mel.png"), "Rastro de Mel", "Pote de mel no Nv 3: o chef deixa mel por onde anda."],
+		[preload("res://sprites/evo_ninhada.png"), "Ninhada", "Ratatui no Nv 3: 4 ratos que mordem bem mais rápido."],
+	]},
 ]
 const TINTA := Color(0.36, 0.2, 0.14)
 const TINTA_CLARA := Color(0.5, 0.36, 0.26)
 const TITULO := Color(0.66, 0.18, 0.14)
 
-# Número da página dupla aberta: 0 = páginas 1 e 2, 1 = páginas 3 e 4.
+# Número da página dupla aberta: 0 = páginas 1 e 2, 1 = páginas 3 e 4, 2 = páginas 5 e 6.
 var aberta := 0
 
 @onready var esquerda: VBoxContainer = $Esquerda
@@ -97,12 +109,19 @@ func escrever(pagina: VBoxContainer, secao: Dictionary) -> void:
 	for filho in pagina.get_children():
 		filho.queue_free()
 	pagina.add_child(rotulo(secao.titulo, 16, TITULO))
+	# Os desenhos têm 26 px de altura. Um desenho largo (as facas deitadas) ficaria
+	# minúsculo num quadrado de 26, então a página inteira reserva a largura que o mais
+	# largo dela precisa (até 48 px): assim os textos continuam alinhados.
+	var largura := 26.0
+	for item in secao.itens:
+		var tamanho: Vector2 = item[0].get_size()
+		largura = max(largura, min(48.0, 26.0 * tamanho.x / tamanho.y))
 	for item in secao.itens:
 		var linha := HBoxContainer.new()
 		linha.add_theme_constant_override("separation", 8)
 		var desenho := TextureRect.new()
 		desenho.texture = item[0]
-		desenho.custom_minimum_size = Vector2(26, 26)
+		desenho.custom_minimum_size = Vector2(largura, 26)
 		desenho.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		desenho.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		linha.add_child(desenho)

@@ -17,6 +17,10 @@ var tempo := 0.0
 var empurrao := Vector2.ZERO
 # Segundos que a panela ainda anda pela metade (pisou no mel).
 var lentidao := 0.0
+# Segundos que a panela ainda fica travada (um rato do Ratatui está mordendo).
+var mordida := 0.0
+# Segundos que a panela ainda fica tonta, parada no lugar (a onda do Gongo).
+var tonta := 0.0
 
 @onready var agente: NavigationAgent2D = $NavigationAgent2D
 @onready var sprite: Sprite2D = $Sprite2D
@@ -36,9 +40,19 @@ func _process(delta: float) -> void:
 		sprite.position.y = -abs(sin(tempo * 12.0)) * 2.0
 	else:
 		sprite.position.y = 0.0
+	# Tonta, a panela balança de um lado para o outro.
+	sprite.rotation = sin(tonta * 25.0) * 0.2 if tonta > 0.0 else 0.0
 
 
 func _physics_process(delta: float) -> void:
+	# Com um rato mordendo ou tonta do Gongo, a panela não sai do lugar. O Panelão
+	# (peso 6) é pesado demais: apanha, mas não fica preso.
+	mordida -= delta
+	tonta -= delta
+	if (mordida > 0.0 or tonta > 0.0) and peso < 4.0:
+		velocity = Vector2.ZERO
+		return
+
 	# A panela não vai mais em linha reta: o agente acha um caminho pela cozinha
 	# que contorna as bancadas, e ela anda até o próximo ponto desse caminho.
 	var proximo := agente.get_next_path_position()

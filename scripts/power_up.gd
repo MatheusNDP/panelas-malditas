@@ -10,6 +10,8 @@ const ARTES := {
 	"tampa": preload("res://sprites/power_tampa.png"),
 }
 const DURACAO := 15.0
+# Lado do quadrado (em px) em que o desenho do power-up cabe no chão.
+const TAMANHO := 16.0
 
 var tipo := "ima"
 var tempo := 0.0
@@ -22,13 +24,18 @@ var pulo_ate := Vector2.ZERO
 
 func _ready() -> void:
 	sprite.texture = ARTES[tipo]
+	# Os desenhos têm tamanhos diferentes (de 11 a 37 px); no chão, todos cabem
+	# num quadrado de 16 px, o tamanho que os power-ups sempre tiveram.
+	var tamanho := sprite.texture.get_size()
+	sprite.scale = Vector2.ONE * TAMANHO / max(tamanho.x, tamanho.y)
 	if pulo_ate != global_position:
 		create_tween().tween_property(self, "global_position", pulo_ate, 0.35).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func _process(delta: float) -> void:
 	tempo += delta
-	sprite.offset.y = sin(tempo * 3.0) * 2.0
+	# O offset é em pixels do desenho: dividir pela escala mantém a flutuação em 2 px na tela.
+	sprite.offset.y = sin(tempo * 3.0) * 2.0 / sprite.scale.y
 	brilho.modulate.a = 0.35 + 0.25 * sin(tempo * 5.0)
 	if tempo > DURACAO - 3.0:
 		visible = int(tempo * 8.0) % 2 == 0

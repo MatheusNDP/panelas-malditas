@@ -1,12 +1,14 @@
-# Colheres de pau: giram longe do chef o tempo todo, num anel fora do alcance da faca,
+# Colher suspeita (colheres de pau... ou seriam pás?): giram longe do chef o tempo todo, num anel fora do alcance da faca,
 # e no sentido contrário dela, batendo em quem estiver no caminho.
 extends Node2D
 
-const NOME := "Colheres de pau"
+const NOME := "Colher suspeita"
 
 @export var cena_colher: PackedScene
 
 var nivel := 1
+# Evoluída, vira a Batucada: mais colheres, e cada pancada empurra as panelas.
+var evoluida := false
 var quantidade := 2
 # A faca alcança no máximo 44 px (raio 40 + a ponta); as colheres giram além disso.
 var raio := 56.0
@@ -26,6 +28,7 @@ func montar() -> void:
 	for i in quantidade:
 		var colher := cena_colher.instantiate()
 		colher.dano = dano
+		colher.batucada = evoluida
 		add_child(colher)
 
 
@@ -40,13 +43,22 @@ func _process(delta: float) -> void:
 
 func subir_nivel() -> void:
 	nivel += 1
+	# Três níveis: o 3 fica igual ao antigo nível 5 (4 colheres, 3 de dano, anel maior).
 	match nivel:
-		2: quantidade += 1
-		3:
+		2:
+			quantidade += 1
 			raio += 10.0
 			velocidade_giro += 1.0
-		4: dano += 1
-		5:
+			dano += 1
+		3:
 			quantidade += 1
 			dano += 1
+	montar()
+
+
+# Batucada (Colher suspeita no nível 3): 6 colheres, e cada pancada solta
+# uma mini-onda que empurra as panelas em volta.
+func evoluir() -> void:
+	evoluida = true
+	quantidade = 6
 	montar()

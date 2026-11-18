@@ -6,7 +6,7 @@ extends CharacterBody2D
 # Tempo entre um giro da faca e o próximo; a melhoria "golpe mais rápido" diminui.
 @export var recarga: float = 0.4
 # Até onde as bolinhas de XP são puxadas (o power-up Ímã puxa todas, de qualquer distância).
-@export var raio_ima: float = 48.0
+@export var raio_ima: float = 64.0
 
 var invencivel := false
 var pode_atacar := true
@@ -17,6 +17,11 @@ var vida_maxima := 0
 var pressa := 0.0
 # As panelas que a faca já cortou na volta atual (para não acertar duas vezes a mesma).
 var acertadas_no_giro: Array = []
+# Cutelo do Chef (a evolução da faca): uma segunda lâmina do lado oposto, que também
+# acerta cada panela uma vez por volta.
+var cutelo := false
+var faca2: Sprite2D = null
+var acertadas_lamina2: Array = []
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox: Area2D = $Hurtbox
@@ -46,6 +51,8 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Enquanto a faca gira, corta as panelas por onde a lâmina passa.
 	if faca.visible:
+		if faca2:
+			faca2.rotation = faca.rotation + PI
 		golpear_no_caminho()
 
 	var direcao := Input.get_vector("left", "right", "up", "down")
@@ -93,9 +100,13 @@ func atacar() -> void:
 	# o próximo golpe só sai quando a recarga termina.
 	pode_atacar = false
 	acertadas_no_giro.clear()
+	acertadas_lamina2.clear()
 	var giro: float = min(0.2, recarga * 0.8)
 	faca.rotation = 0.0
 	faca.visible = true
+	if faca2:
+		faca2.rotation = PI
+		faca2.visible = true
 	var volta := create_tween()
 	volta.tween_property(faca, "rotation", TAU, giro)
 	# O rastro: um anel claro que aparece com o giro e some aos poucos.
@@ -107,6 +118,8 @@ func atacar() -> void:
 	# Fim da volta: a faca passou por todo o círculo, então pega quem ainda faltava.
 	golpear_no_caminho()
 	faca.visible = false
+	if faca2:
+		faca2.visible = false
 	await get_tree().create_timer(recarga - giro, false).timeout
 	pode_atacar = true
 
@@ -115,16 +128,19 @@ func atacar() -> void:
 # passa pelo ângulo dela, e cada panela leva no máximo um golpe por volta.
 # Roda a cada quadro de física enquanto a faca gira (ver _physics_process).
 func golpear_no_caminho() -> void:
-	for inimigo in ataque.get_overlapping_bodies():
-		if inimigo in acertadas_no_giro:
-			continue
+	# A faca acerta a caixa Corpo da panela (do tamanho do desenho), não a base dos pés.
+	for corpo in ataque.get_overlapping_areas():
+		var inimigo = corpo.get_parent()
 		var angulo := fposmod((inimigo.global_position - global_position).angle(), TAU)
-		if angulo > faca.rotation:
-			continue
-		if acertadas_no_giro.is_empty():
-			Som.tocar("faca", -4.0)
-		acertadas_no_giro.append(inimigo)
-		inimigo.levar_golpe(dano)
+		if not inimigo in acertadas_no_giro and angulo <= faca.rotation:
+			if acertadas_no_giro.is_empty():
+				Som.tocar("faca", -4.0)
+			acertadas_no_giro.append(inimigo)
+			inimigo.levar_golpe(dano)
+		# A segunda lâmina começa meia volta à frente (em PI).
+		if cutelo and not inimigo in acertadas_lamina2 and fposmod(angulo - PI, TAU) <= faca.rotation:
+			acertadas_lamina2.append(inimigo)
+			inimigo.levar_golpe(dano)
 
 
 # Melhoria "faca maior": o círculo do golpe cresce e a faca cresce junto,
@@ -132,4 +148,18 @@ func golpear_no_caminho() -> void:
 func aumentar_alcance(quanto: float) -> void:
 	forma_ataque.radius += quanto
 	faca.scale = Vector2.ONE * (forma_ataque.radius + 4.0) / 28.0
+	if faca2:
+		faca2.scale = faca.scale
 	rastro.scale = Vector2.ONE * (forma_ataque.radius + 4.0) / 32.0
+
+
+# Cutelo do Chef (a Faca maior no máximo): uma segunda lâmina do lado oposto
+# e +2 de dano. As duas lâminas ficam douradas.
+func evoluir_faca() -> void:
+	cutelo = true
+	dano += 2
+	faca2 = faca.duplicate()
+	faca2.visible = false
+	ataque.add_child(faca2)
+	faca.self_modulate = Color(1.15, 1.0, 0.7)
+	faca2.self_modulate = faca.self_modulate

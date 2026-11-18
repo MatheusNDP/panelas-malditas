@@ -5,6 +5,9 @@
 [ext_resource type="Script" path="res://scripts/chaleira.gd" id="3_script"]
 [ext_resource type="PackedScene" path="res://entities/vapor.tscn" id="4_vapor"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo_chaleira"]
+size = Vector2(16, 16)
+
 [node name="Chaleira" instance=ExtResource("1_base")]
 script = ExtResource("3_script")
 velocidade = 35.0
@@ -20,5 +23,9 @@ texture = ExtResource("2_arte")
 [node name="Cuspe" type="Timer" parent="." unique_id=1956847312]
 wait_time = 3.0
 one_shot = true
+
+[node name="CollisionShape2D" parent="Corpo" index="0"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_corpo_chaleira")
 
 [connection signal="timeout" from="Cuspe" to="." method="_on_cuspe_timeout"]

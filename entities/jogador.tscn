@@ -179,7 +179,7 @@ shape = SubResource("CircleShape2D_3prry")
 
 [node name="Ataque" type="Area2D" parent="." unique_id=491671342]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ataque" unique_id=1906756883]
 shape = SubResource("CircleShape2D_6odg7")
@@ -194,6 +194,6 @@ texture = ExtResource("5_rastro")
 visible = false
 z_index = 2
 texture = ExtResource("3_faca")
-offset = Vector2(16, 0)
+offset = Vector2(14.5, 0)
 
 [node name="Armas" type="Node2D" parent="." unique_id=1801000070]

@@ -19,6 +19,38 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.96, 0.9, 0.78, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.14, 0.11, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao_foco"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 0.84, 0.5, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.16, 0.08, 0.06, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="Fim" type="Control" unique_id=1304005001]
 layout_mode = 3
 anchors_preset = 15
@@ -98,17 +130,43 @@ text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dica" type="Label" parent="." unique_id=1304005008]
+[node name="Botoes" type="HBoxContainer" parent="." unique_id=1304005008]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 300.0
-offset_bottom = 328.0
+offset_top = 284.0
+offset_bottom = 318.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.16, 0.07, 0.08, 1)
-theme_override_constants/outline_size = 6
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Continuar" type="Button" parent="Botoes" unique_id=1304005009]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.3, 0.16, 0.12, 1)
+theme_override_colors/font_hover_color = Color(0.22, 0.1, 0.07, 1)
+theme_override_colors/font_pressed_color = Color(0.22, 0.1, 0.07, 1)
 theme_override_font_sizes/font_size = 14
-text = "Enter: jogar de novo      Esc: menu inicial"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+text = "Continuar Jogando"
+
+[node name="Menu" type="Button" parent="Botoes" unique_id=1304005010]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.3, 0.16, 0.12, 1)
+theme_override_colors/font_hover_color = Color(0.22, 0.1, 0.07, 1)
+theme_override_colors/font_pressed_color = Color(0.22, 0.1, 0.07, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
+text = "Menu Inicial"
+
+[connection signal="pressed" from="Botoes/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="Botoes/Menu" to="." method="_on_menu_pressed"]

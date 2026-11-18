@@ -347,25 +347,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
 
-[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao1" unique_id=1902001402]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 3.0
-offset_right = 20.0
-offset_bottom = 17.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
-theme_override_font_sizes/font_size = 10
-text = "1"
-
 [node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao1" unique_id=1902001403]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
+offset_left = -52.0
 offset_top = 12.0
-offset_right = 24.0
+offset_right = 52.0
 offset_bottom = 60.0
 grow_horizontal = 2
 mouse_filter = 2
@@ -406,25 +395,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
 
-[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao2" unique_id=1902001406]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 3.0
-offset_right = 20.0
-offset_bottom = 17.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
-theme_override_font_sizes/font_size = 10
-text = "2"
-
 [node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao2" unique_id=1902001407]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
+offset_left = -52.0
 offset_top = 12.0
-offset_right = 24.0
+offset_right = 52.0
 offset_bottom = 60.0
 grow_horizontal = 2
 mouse_filter = 2
@@ -465,25 +443,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_foco")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_foco")
 
-[node name="Numero" type="Label" parent="Melhorias/Opcoes/Botao3" unique_id=1902001410]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 3.0
-offset_right = 20.0
-offset_bottom = 17.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.84, 0.66, 0.33, 1)
-theme_override_font_sizes/font_size = 10
-text = "3"
-
 [node name="Icone" type="TextureRect" parent="Melhorias/Opcoes/Botao3" unique_id=1902001411]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
+offset_left = -52.0
 offset_top = 12.0
-offset_right = 24.0
+offset_right = 52.0
 offset_bottom = 60.0
 grow_horizontal = 2
 mouse_filter = 2

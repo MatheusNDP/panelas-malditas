@@ -31,6 +31,9 @@ func _on_body_entered(inimigo: Node2D) -> void:
 		inimigo.encostou_no_caldeirao()
 		return
 
+	# A panela que chega na sopa ainda deixa 1 bolinha de XP: assim, quando o chef
+	# começa a perder, ele não para de subir de nível também.
+	get_tree().current_scene.soltar_xp(inimigo.global_position, 1)
 	inimigo.queue_free()
 	levar_toque()
 

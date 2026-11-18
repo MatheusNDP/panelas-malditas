@@ -2,6 +2,8 @@
 # perto (dentro do raio do ímã dele), ela é puxada cada vez mais rápido até ele e vira XP.
 extends Sprite2D
 
+# Quanto XP esta bolinha vale: a cozinha muda conforme a fase (verde 1, azul 1,5, vermelha 2).
+var valor := 1.0
 var puxando := false
 var velocidade := 0.0
 # Logo que nasce, a bolinha só se espalha; depois de 0,3 s já pode ser puxada.
@@ -27,5 +29,5 @@ func _process(delta: float) -> void:
 	global_position = global_position.move_toward(chef.global_position, velocidade * delta)
 	if global_position.distance_to(chef.global_position) < 4.0:
 		Som.tocar("xp", -10.0)
-		get_tree().current_scene.ganhar_xp(1)
+		get_tree().current_scene.ganhar_xp(valor)
 		queue_free()

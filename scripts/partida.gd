@@ -13,6 +13,8 @@ var tempo := 0.0
 var recorde := 0
 var novo_recorde := false
 var panelao_derrotado := false
+# Segundos de hora extra (jogando depois de vencer os 3 minutos); 0 se não teve.
+var hora_extra := 0.0
 
 
 func _ready() -> void:

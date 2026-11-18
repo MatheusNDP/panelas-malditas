@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" path="res://sprites/panelao.png" id="2_arte"]
 [ext_resource type="Script" path="res://scripts/panelao.gd" id="3_script"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo_panelao"]
+size = Vector2(40, 38)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_panelao"]
 size = Vector2(14, 8)
 
@@ -31,5 +34,9 @@ shape = SubResource("RectangleShape2D_panelao")
 
 [node name="Pancada" type="Timer" parent="." unique_id=1405060708]
 wait_time = 1.5
+
+[node name="CollisionShape2D" parent="Corpo" index="0"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_corpo_panelao")
 
 [connection signal="timeout" from="Pancada" to="." method="_on_pancada_timeout"]
