@@ -15,6 +15,8 @@ var forma_ataque: CircleShape2D
 var vida_maxima := 0
 # Segundos que ainda faltam do efeito da pimenta (chef mais rápido).
 var pressa := 0.0
+# As panelas que a faca já cortou na volta atual (para não acertar duas vezes a mesma).
+var acertadas_no_giro: Array = []
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox: Area2D = $Hurtbox
@@ -42,6 +44,10 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Enquanto a faca gira, corta as panelas por onde a lâmina passa.
+	if faca.visible:
+		golpear_no_caminho()
+
 	var direcao := Input.get_vector("left", "right", "up", "down")
 	# Com a pimenta, o chef anda 60% mais rápido e fica avermelhado.
 	pressa -= delta
@@ -83,16 +89,10 @@ func levar_dano() -> void:
 
 
 func atacar() -> void:
-	# Acerta toda panela que estiver dentro do círculo neste quadro.
-	var acertadas := ataque.get_overlapping_bodies()
-	if not acertadas.is_empty():
-		Som.tocar("faca", -4.0)
-	for inimigo in acertadas:
-		inimigo.levar_golpe(dano)
-
 	# A faca dá uma volta inteira no chef (em 0,2 s, ou menos se a recarga for curta);
 	# o próximo golpe só sai quando a recarga termina.
 	pode_atacar = false
+	acertadas_no_giro.clear()
 	var giro: float = min(0.2, recarga * 0.8)
 	faca.rotation = 0.0
 	faca.visible = true
@@ -102,10 +102,29 @@ func atacar() -> void:
 	rastro.visible = true
 	rastro.modulate.a = 0.8
 	create_tween().tween_property(rastro, "modulate:a", 0.0, giro * 1.5)
+	golpear_no_caminho()
 	await volta.finished
+	# Fim da volta: a faca passou por todo o círculo, então pega quem ainda faltava.
+	golpear_no_caminho()
 	faca.visible = false
 	await get_tree().create_timer(recarga - giro, false).timeout
 	pode_atacar = true
+
+
+# O golpe acompanha a lâmina: a panela dentro do círculo só leva o golpe quando a faca
+# passa pelo ângulo dela, e cada panela leva no máximo um golpe por volta.
+# Roda a cada quadro de física enquanto a faca gira (ver _physics_process).
+func golpear_no_caminho() -> void:
+	for inimigo in ataque.get_overlapping_bodies():
+		if inimigo in acertadas_no_giro:
+			continue
+		var angulo := fposmod((inimigo.global_position - global_position).angle(), TAU)
+		if angulo > faca.rotation:
+			continue
+		if acertadas_no_giro.is_empty():
+			Som.tocar("faca", -4.0)
+		acertadas_no_giro.append(inimigo)
+		inimigo.levar_golpe(dano)
 
 
 # Melhoria "faca maior": o círculo do golpe cresce e a faca cresce junto,
