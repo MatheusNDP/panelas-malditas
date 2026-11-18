@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Tela de início: o nome do jogo, o elenco pulando, as instruções e o recorde.
 extends Control
 

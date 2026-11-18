@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Uma colher de pau girando: bate em toda panela que ela encostar.
 extends Area2D
 

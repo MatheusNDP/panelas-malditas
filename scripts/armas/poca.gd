@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # A poça de mel no chão: gruda nas panelas, deixa elas lentas e machuca a cada 0,5 s.
 extends Area2D
 

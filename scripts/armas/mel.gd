@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Pote de mel: o chef joga uma poça de mel grudento onde há panelas por perto.
 # Quem pisa na poça fica preso, anda pela metade e se desgasta a cada meio segundo.
 extends Node2D

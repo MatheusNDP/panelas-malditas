@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Talheres: de tempos em tempos o chef arremessa talheres nas panelas mais perto;
 # cada um sai sorteado, uma faca ou um garfo (quem sorteia é o próprio garfo.gd).
 # O garfo voa reto e atravessa panelas até gastar a força.

@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # O vapor da chaleira voa em linha reta até o caldeirão e tira um toque dele.
 # Se o chef entrar na frente, o vapor se desfaz nele sem fazer mal.
 extends Area2D

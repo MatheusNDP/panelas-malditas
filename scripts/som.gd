@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Toca os efeitos sonoros e a música. É um Autoload (Project Settings > Globals),
 # então existe o jogo todo, sobrevive à troca de cena e qualquer script chama Som.tocar("nome").
 extends Node

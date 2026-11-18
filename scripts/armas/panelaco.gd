@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Panelaço: o chef bate uma tampa de panela e solta uma onda que sai para todos os lados
 # ao mesmo tempo. A onda acerta cada panela uma vez e a empurra para trás.
 extends Node2D

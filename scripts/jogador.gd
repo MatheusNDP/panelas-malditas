@@ -1,4 +1,4 @@
-# Origem: técnica dos roteiros da Aula 08 (Parte 3.5), da Aula 09 (Parte 3.2) e da Aula 10 (Parte 2.3, o ataque), Prof. Ezéfferth, aplicada ao chef.
+# Origem: técnica dos roteiros da Aula 08 (Parte 3.5), da Aula 09 (Parte 3.2) e da Aula 10 (Parte 2.3, o ataque), Prof. Ezéfferth, aplicada ao chef; escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 extends CharacterBody2D
 
 @export var velocidade: float = 70.0

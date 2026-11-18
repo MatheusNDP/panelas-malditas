@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Pausa com Esc: o jogo para e abre o livro de receitas do chef, com cada arma,
 # tempero (melhoria), achado (power-up) e panela explicados ao lado do desenho.
 # Roda sempre (process_mode Always) para ouvir o Esc com o jogo parado ou não.

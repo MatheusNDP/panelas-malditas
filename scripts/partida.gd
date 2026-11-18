@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Guarda o resumo da última partida para a tela de fim e o recorde de abates.
 # É um Autoload, como o Som: a cozinha preenche no fim da partida e a tela de fim lê.
 extends Node

@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Power-up solto no chão: flutua com um brilho em volta, pisca nos últimos 3 s e some
 # depois de 15 s. Quando o chef encosta, a cozinha aplica o efeito do tipo dele.
 extends Area2D

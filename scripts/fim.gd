@@ -1,4 +1,4 @@
-# Origem: técnica do roteiro da Aula 09 (Prof. Ezéfferth), Parte 4.1, com o resumo da partida.
+# Origem: técnica do roteiro da Aula 09 (Prof. Ezéfferth), Parte 4.1, com o resumo da partida; escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 extends Control
 
 @onready var titulo: Label = $Titulo

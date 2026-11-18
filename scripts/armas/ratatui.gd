@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Ratatui: ratinhos de estimação que andam com o chef. Quando tem panela perto,
 # cada rato corre até uma, morde e segura a panela no lugar até ela quebrar.
 # Cada nível traz mais um rato e mordidas mais rápidas (1, 2 e 3 ratos;

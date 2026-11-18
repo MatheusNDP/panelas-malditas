@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Um talher voando: anda reto, acerta as panelas no caminho e some na parede.
 # Metade das vezes ele é um garfo e metade uma faca (só muda o desenho).
 extends Area2D

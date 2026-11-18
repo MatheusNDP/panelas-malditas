@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Um ratinho do Ratatui. Sem panela por perto, ele fica em volta do chef.
 # Com panela, corre até ela, gruda do lado e morde até ela quebrar; enquanto
 # morde, a panela fica travada no lugar (o Panelão é pesado demais para travar).

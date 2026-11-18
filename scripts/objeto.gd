@@ -1,4 +1,4 @@
-# Origem: ficha Defesa da folha da Aula 09 (Prof. Ezéfferth), aplicada ao caldeirão.
+# Origem: ficha Defesa da folha da Aula 09 (Prof. Ezéfferth), aplicada ao caldeirão; escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 extends Area2D
 
 var toques := 0

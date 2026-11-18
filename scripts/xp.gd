@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Bolinha de XP: fica flutuando no chão onde a panela quebrou. Quando o chef chega
 # perto (dentro do raio do ímã dele), ela é puxada cada vez mais rápido até ele e vira XP.
 extends Sprite2D

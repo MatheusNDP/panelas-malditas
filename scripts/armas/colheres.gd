@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Colher suspeita (colheres de pau... ou seriam pás?): giram longe do chef o tempo todo, num anel fora do alcance da faca,
 # e no sentido contrário dela, batendo em quem estiver no caminho.
 extends Node2D

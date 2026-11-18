@@ -1,3 +1,4 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # Tela de subir de nível: o jogo pausa e o chef escolhe uma de três melhorias sorteadas.
 # Ela continua rodando com o jogo pausado porque o process_mode dela é "When Paused".
 # Cada arma sobe de nível pelo cartão dela; quando chega no nível 3, evolui sozinha.

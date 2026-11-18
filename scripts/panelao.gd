@@ -1,9 +1,11 @@
+# Origem: escrito com auxílio de IA (Claude Code, assistente da Anthropic).
 # O Panelão: a panela gigante do último minuto. É lenta e aguenta muitos golpes,
 # e, quando chega ao caldeirão, fica batendo nele até alguém derrubá-la.
+# Na máquina de estados do inimigo.gd ele nunca fica TRAVADA (é pesado demais), e
+# o estado ATACANDO não tem volta: depois que encosta no caldeirão, só sai quebrado.
 extends "res://scripts/inimigo.gd"
 
 var vida_maxima := 0
-var batendo := false
 
 @onready var pancada: Timer = $Pancada
 
@@ -13,18 +15,23 @@ func _ready() -> void:
 	vida_maxima = vida
 
 
-func _physics_process(delta: float) -> void:
-	if batendo:
-		velocity = Vector2.ZERO
-		return
-	super(delta)
+func proximo_estado() -> Estado:
+	if estado == Estado.ATACANDO:
+		return Estado.ATACANDO
+	return super()
 
 
 # O caldeirão chama esta função quando o Panelão encosta nele (as outras panelas somem na hora).
 func encostou_no_caldeirao() -> void:
-	batendo = true
-	pancada.start()
-	_on_pancada_timeout()
+	if estado != Estado.ATACANDO:
+		mudar_estado(Estado.ATACANDO)
+
+
+# Atacando, o Timer Pancada bate no caldeirão a cada 1,5 s; a primeira pancada é na hora.
+func entrar_no_estado(novo: Estado) -> void:
+	if novo == Estado.ATACANDO:
+		pancada.start()
+		_on_pancada_timeout()
 
 
 func _on_pancada_timeout() -> void:

@@ -1,4 +1,4 @@
-# Origem: técnica dos roteiros da Aula 09 (Parte 1.3, fichas Abate e Defesa) e da Aula 10 (Partes 1.4 e 2.4, a rota mais barata e o inimigo que aguenta mais), Prof. Ezéfferth, aplicada à panela.
+# Origem: técnica dos roteiros da Aula 09 (Parte 1.3, fichas Abate e Defesa) e da Aula 10 (Partes 1.4 e 2.4, a rota mais barata e o inimigo que aguenta mais), Prof. Ezéfferth, aplicada à panela; escrito com auxílio de IA (Claude Code, assistente da Anthropic), inclusive a máquina de estados.
 extends CharacterBody2D
 
 @export var velocidade: float = 40.0
@@ -12,6 +12,20 @@ extends CharacterBody2D
 @export var peso: float = 1.0
 # Chance (de 0 a 1) de soltar um power-up quando quebra.
 @export var chance_power_up: float = 0.04
+
+# Máquina de estados do comportamento da panela. Cada quadro ela confere se deve
+# trocar de estado (proximo_estado) e depois faz o que o estado atual manda.
+#   SURGINDO     acabou de nascer, cresce com o "pop" e ainda não anda (0,25 s)
+#   PERSEGUINDO  segue o caminho do NavigationAgent2D até o alvo, contornando as bancadas
+#   TRAVADA      parada no lugar: um rato está mordendo ou a onda do Gongo deixou tonta
+#   ATACANDO     parada atacando o caldeirão (usado pela chaleira e pelo Panelão)
+enum Estado { SURGINDO, PERSEGUINDO, TRAVADA, ATACANDO }
+
+const TEMPO_SURGINDO := 0.25
+
+var estado: Estado = Estado.SURGINDO
+# Segundos desde que a panela entrou no estado atual.
+var tempo_no_estado := 0.0
 
 var tempo := 0.0
 var empurrao := Vector2.ZERO
@@ -45,19 +59,65 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# Com um rato mordendo ou tonta do Gongo, a panela não sai do lugar. O Panelão
-	# (peso 6) é pesado demais: apanha, mas não fica preso.
 	mordida -= delta
 	tonta -= delta
-	if (mordida > 0.0 or tonta > 0.0) and peso < 4.0:
-		velocity = Vector2.ZERO
-		return
+	lentidao -= delta
+	tempo_no_estado += delta
 
-	# A panela não vai mais em linha reta: o agente acha um caminho pela cozinha
-	# que contorna as bancadas, e ela anda até o próximo ponto desse caminho.
+	var novo := proximo_estado()
+	if novo != estado:
+		mudar_estado(novo)
+
+	match estado:
+		Estado.PERSEGUINDO:
+			perseguir(delta)
+		Estado.SURGINDO, Estado.TRAVADA, Estado.ATACANDO:
+			velocity = Vector2.ZERO
+
+
+# As transições: de qual estado a panela vai para qual, e quando.
+# A chaleira e o Panelão sobrescrevem esta função para acrescentar as deles.
+func proximo_estado() -> Estado:
+	match estado:
+		Estado.SURGINDO:
+			if tempo_no_estado >= TEMPO_SURGINDO:
+				return Estado.PERSEGUINDO
+		Estado.PERSEGUINDO:
+			if presa():
+				return Estado.TRAVADA
+		Estado.TRAVADA:
+			if not presa():
+				return Estado.PERSEGUINDO
+	return estado
+
+
+func mudar_estado(novo: Estado) -> void:
+	sair_do_estado(estado)
+	estado = novo
+	tempo_no_estado = 0.0
+	entrar_no_estado(novo)
+
+
+# Ganchos para as cenas herdadas ligarem e desligarem coisas na troca de estado.
+func entrar_no_estado(_novo: Estado) -> void:
+	pass
+
+
+func sair_do_estado(_antigo: Estado) -> void:
+	pass
+
+
+# Com um rato mordendo ou tonta do Gongo, a panela fica presa. O Panelão
+# (peso 6) é pesado demais: apanha, mas não fica preso.
+func presa() -> bool:
+	return (mordida > 0.0 or tonta > 0.0) and peso < 4.0
+
+
+# A panela não vai em linha reta: o agente acha um caminho pela cozinha
+# que contorna as bancadas, e ela anda até o próximo ponto desse caminho.
+func perseguir(delta: float) -> void:
 	var proximo := agente.get_next_path_position()
 	var fator := 0.5 if lentidao > 0.0 else 1.0
-	lentidao -= delta
 	velocity = global_position.direction_to(proximo) * velocidade * fator + empurrao
 	empurrao = empurrao.move_toward(Vector2.ZERO, 500.0 * delta)
 	move_and_slide()
